@@ -4,28 +4,73 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.MainActivity">
+        android:id="@+id/mainView"
+        tools:context=".MainActivity">
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:id="@+id/relativeLayout"-->
+    <!--    tools:context=".MainActivity">-->
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:id="@+id/textview"
+    <ImageView
+            android:id="@+id/archor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello Redis!"
-            android:id="@+id/textRedis"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintVertical_bias="0.596" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/archor_card"/>
+
+    <ImageButton
+            android:id="@+id/archor_card"
+            android:tag="card_archor"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/archor_card" />
+
+    <ImageButton
+            android:id="@+id/hogRider_card"
+            android:tag="card_hogRider"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/archor_card"
+            android:src="@drawable/hogrider_card"/>
+
+    <ImageButton
+            android:id="@+id/giant_card"
+            android:tag="giant_card"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/hogRider_card"
+            android:src="@drawable/giant_card"/>
+
+    <ImageButton
+            android:id="@+id/fireball_card"
+            android:tag="@string/fireball_card"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/giant_card"
+            android:src="@drawable/fireball_card"/>
+
+    <ImageButton
+            android:id="@+id/zap_card"
+            android:tag="@string/fireball_card"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/fireball_card"
+            android:src="@drawable/zap_card"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
