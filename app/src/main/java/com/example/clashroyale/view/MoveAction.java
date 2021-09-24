@@ -120,6 +120,5 @@ public class MoveAction {
             img.setX(newPosX);
             img.setY(newPosY);
         }
-
     }
 }

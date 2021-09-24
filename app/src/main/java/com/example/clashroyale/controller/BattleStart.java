@@ -38,17 +38,13 @@ public class BattleStart {
 
     public void moveCard() throws InterruptedException {
         Archor archor = new Archor(initViewElement.archor);
-//        MoveAction moveAction = new MoveAction(
-//                GlobalConfig.screenHeight,
-//                GlobalConfig.screenWidth,
-//                archor.getImage()
-//        );
-//        moveLogic.movingUp(1);
-//        moveLogic.movingLeft(1, 270);
-
-//        GameLogic gameLogic = new GameLogic(screenWidth, screenHeight);
-//        gameLogic.movingUp_logic(moveAction, 1, 270, archor.getImage());
-//        gameLogic.troopCardMovedLogic(moveAction, );
+//        MoveAction moveAction = new MoveAction();
+////        moveLogic.movingUp(1);
+////        moveLogic.movingLeft(1, 270);
+//
+//        GameLogic gameLogic = new GameLogic();
+//        gameLogic.movingUp_logic();
+//        gameLogic.troopCardMovedLogic();
 
         initEventListener = new InitEventListener(initViewElement);
         initEventListener.cardButtonEventListener();

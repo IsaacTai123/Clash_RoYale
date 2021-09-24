@@ -41,10 +41,10 @@ public class GlobalConfig {
     }
 
     public static void calcPath() {
-        pathOne_Left = (screenWidth / 4) - 20;
-        pathOne_Right = (pathOne_Left + 40);
+        pathOne_Left = (screenWidth / 4) - 30;
+        pathOne_Right = (pathOne_Left + 60);
         pathMiddle = screenWidth / 2;
-        pathTwo_Left = (screenWidth / 4 * 3) - 20;
-        pathTwo_Right = (pathTwo_Left + 40);
+        pathTwo_Left = (screenWidth / 4 * 3) - 30;
+        pathTwo_Right = (pathTwo_Left + 60);
     }
 }

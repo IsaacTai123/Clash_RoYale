@@ -64,9 +64,9 @@ public class CreateCardInstance {
 //                break;
         }
 
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(150, 150);
-        params.leftMargin = (int) (clickX - 75);  //因為透過getX抓到的座標位置是滑鼠點擊的地方, 所以產生的圖片會是從左上角開始(這邊調整至中)
-        params.topMargin = (int) (clickY - 75);
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(100, 100);
+        params.leftMargin = (int) (clickX - 50);  //因為透過getX抓到的座標位置是滑鼠點擊的地方, 所以產生的圖片會是從左上角開始(這邊調整至中)
+        params.topMargin = (int) (clickY - 50);
         params.startToStart = conLay.getId(); // 取得layout最外層的ID, 也就是activity_main.xml 的parent.
         params.topToTop = conLay.getId();
 
@@ -74,32 +74,9 @@ public class CreateCardInstance {
         conLay.addView(cardInstance);
 
         // 讓腳色開始移動
-//        MoveCard moveCard = new MoveCard(clickX, clickY, cardInstance);
-//        Thread thread = new Thread(moveCard);
-//        thread.start();
         MoveAction moveAction = new MoveAction();
         GameLogic gameLogic = new GameLogic();
-        gameLogic.troopCardMovedLogic(moveAction, clickX, clickY, 1, cardInstance);
+        gameLogic.startTroopCardMovedLogic(moveAction, clickX, clickY, 1, cardInstance);
     }
 
-}
-
-class MoveCard implements Runnable {
-
-    private float clickX;
-    private float clickY;
-    private ImageView cardInstance;
-
-    public MoveCard(float clickX, float clickY, ImageView cardInstance) {
-        this.cardInstance = cardInstance;
-        this.clickX = clickX;
-        this.clickY = clickY;
-    }
-
-    @Override
-    public void run() {
-            MoveAction moveAction = new MoveAction();
-            GameLogic gameLogic = new GameLogic();
-            gameLogic.troopCardMovedLogic(moveAction, clickX, clickY, 1, cardInstance);
-    }
 }
