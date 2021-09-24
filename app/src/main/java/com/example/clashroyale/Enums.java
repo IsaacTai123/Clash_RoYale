@@ -8,5 +8,7 @@ public enum Enums {
     RIGHT_UP,
     RIGHT_DOWN,
     LEFT_UP,
-    LEFT_DOWN
+    LEFT_DOWN,
+    PATH_ONE,
+    PATH_TWO
 }

@@ -76,6 +76,7 @@ public class CreateCardInstance {
         // 讓腳色開始移動
         MoveAction moveAction = new MoveAction();
         GameLogic gameLogic = new GameLogic();
+        // TODO : 要把step依照卡牌輸入
         gameLogic.startTroopCardMovedLogic(moveAction, clickX, clickY, 1, cardInstance);
     }
 

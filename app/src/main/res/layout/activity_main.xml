@@ -6,22 +6,79 @@
         android:layout_height="match_parent"
         android:id="@+id/mainView"
         tools:context=".MainActivity">
-    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--    xmlns:tools="http://schemas.android.com/tools"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    android:id="@+id/relativeLayout"-->
-    <!--    tools:context=".MainActivity">-->
+
 
     <ImageView
-            android:id="@+id/archor"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/enemy_main_castle"
+            android:src="@drawable/enemy_main_castle"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/archor_card"/>
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintVertical_bias="0.02" />
+
+    <ImageView
+            android:id="@+id/enemy_subcastle"
+            android:src="@drawable/enemy_subcastle"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintVertical_bias="0.08" />
+
+    <ImageView
+            android:id="@+id/enemy_subcastle2"
+            android:src="@drawable/enemy_subcastle"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.826"
+            app:layout_constraintVertical_bias="0.08" />
+
+    <ImageView
+            android:id="@+id/main_castle"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/main_castle"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintVertical_bias="0.855" />
+
+    <ImageView
+            android:id="@+id/main_castle2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/main_castle"
+            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintVertical_bias="0.79" />
+
+    <ImageView
+            android:id="@+id/main_castle3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/main_castle"
+            app:layout_constraintHorizontal_bias="0.826"
+            app:layout_constraintVertical_bias="0.79" />
 
     <ImageButton
             android:id="@+id/archor_card"
