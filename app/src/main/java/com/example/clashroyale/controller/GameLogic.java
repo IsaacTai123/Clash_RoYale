@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GameLogic {
 
     ImageView selectedCard;
+    Timer timer = new Timer();
 
     // variable
 
@@ -29,31 +30,28 @@ public class GameLogic {
     public ImageView getSelectedCard() { return selectedCard; }
 
     // TODO: 製作移動的規則 (往什麼方向, 斜角? 或是往敵人走去? 遇到敵人則停下攻擊)
-    public void troopCardMovedLogic(MoveAction moveAction, float clickX, float clickY, int step, int pathX, ImageView img) {
+    public void troopCardMovedLogic(MoveAction moveAction, float clickX, float clickY, int step, ImageView img) {
 
-        AtomicInteger imgX = new AtomicInteger();
-        AtomicInteger imgY = new AtomicInteger();
-        img.post(() -> {
-            imgX.set((int) img.getX());
-            imgY.set((int) img.getY());
-            Log.e("getX", ""+img.getX());
-        });
+        AtomicInteger[] imgXY = getImageValue(img);
 
         // 依照放置的位置判斷行走的方向
         // 若腳色放置的x軸座標是在第1塊的時候要讓他往右上移動 (直到碰到路徑)
-//        if (clickX < quarter) {
-//            boolean cond = movingRightUp_logic(moveAction, step, pathX, img);
-//            if (!cond) {
-//                movingUp_logic(moveAction, step, pathX, img);
-//            }
-//
-//
-//        }
-        boolean cond = movingRightUp_logic(moveAction, step, img, imgX, imgY);
+        if (clickX < GlobalConfig.pathOne_Left) {
+            boolean cond = movingRightUp_logic(moveAction, step, img, imgXY[0], imgXY[1]);
+            if (!cond) {
+                movingUp_logic(moveAction, step, img, imgXY[0], imgXY[1]);
+            }
+        }
+        else if (clickX > GlobalConfig.pathOne_Right && clickX < GlobalConfig.pathMiddle) {
+            boolean cond = movingLeftUp_logic(moveAction, step, img, imgXY[0], imgXY[1]);
+            if (!cond) {
+
+            }
+        }
     }
 
     public void movingUp_logic(MoveAction moveAction, int step, ImageView img, AtomicInteger imgX, AtomicInteger imgY) {
-        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
+//        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
 //        Handler handler = new Handler();
 
         timer.schedule(new TimerTask() {
@@ -73,7 +71,7 @@ public class GameLogic {
     }
 
     public void movingLeft_logic(MoveAction moveAction, int step, ImageView img, AtomicInteger imgX, AtomicInteger imgY) {
-        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
+//        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
 //        Handler handler = new Handler();
 
         timer.schedule(new TimerTask() {
@@ -94,22 +92,45 @@ public class GameLogic {
 
     public boolean movingRightUp_logic(MoveAction moveAction, int step, ImageView img, AtomicInteger imgX, AtomicInteger imgY) {
         boolean[] condition = {true};
-        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
+//        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
 //        Handler handler = new Handler();
 
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                int leftFrame = (int) (img.getX() + img.getWidth());
+                int middleX = (int) (img.getX() + img.getWidth()/2);
                 int x = imgX.getAndAdd(step); //x 座標
                 int y = imgY.getAndAdd(-step); //y 座標
 
                     // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
-                if (leftFrame > GlobalConfig.screenWidth) {
+                if (middleX > GlobalConfig.pathOne_Left) {
                     condition[0] = false;
                     timer.cancel();
                 }
                 moveAction.startMoving(Enums.RIGHT_UP, x, y, img);
+            }
+        }, 0, 20);
+        return condition[0];
+    }
+
+    public boolean movingLeftUp_logic(MoveAction moveAction, int step, ImageView img, AtomicInteger imgX, AtomicInteger imgY) {
+        boolean[] condition = {true};
+//        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
+//        Handler handler = new Handler();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int middleX = (int) (img.getX() + img.getWidth()/2);
+                int x = imgX.getAndAdd(-step); //x 座標
+                int y = imgY.getAndAdd(-step); //y 座標
+
+                    // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
+                if (middleX < GlobalConfig.pathOne_Right) {
+                    condition[0] = false;
+                    timer.cancel();
+                }
+                moveAction.startMoving(Enums.LEFT_UP, x, y, img);
             }
         }, 0, 20);
         return condition[0];

@@ -1,6 +1,8 @@
 package com.example.clashroyale.view;
 
+import android.util.Log;
 import android.widget.ImageView;
+import android.os.Handler;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,13 +20,9 @@ public class MoveAction {
 //    private ImageView img;
 
     private final Timer timer = new Timer();
-    private Handler handler = new Handler();
 
     public MoveAction()
     {
-//        this.imgX = img.getX();
-//        this.imgY = img.getY();
-//        this.img = img;
     }
 
     // 將物件向上移動
@@ -114,48 +112,14 @@ public class MoveAction {
 
     public void startMoving(Enums direction, int newPosX, int newPosY, ImageView img) {
 
-//        switch (direction)
-//        {
-//            case LEFT:
-//                img.setX(newPosX);
-//                break;
-//            case RIGHT:
-//                img.setX(newPosX);
-//                break;
-//            case UP:
-//                img.setY(newPosY);
-//                break;
-//            case DOWN:
-//                img.setY(newPosY);
-//                break;
-//            case RIGHT_UP:
-//                img.setX(newPosX);
-//                img.setY(newPosY);
-//                break;
-//            case RIGHT_DOWN:
-//                img.setX(newPosX);
-//                img.setY(newPosY);
-//                break;
-//            case LEFT_UP:
-//                img.setX(newPosX);
-//                img.setY(newPosY);
-//                break;
-//            case LEFT_DOWN:
-//                img.setX(newPosX);
-//                img.setY(newPosY);
-//                break;
-//        }
-
         if (direction.equals(Enums.LEFT) || direction.equals(Enums.RIGHT)) {
             img.setX(newPosX);
-        }
-        else if (direction.equals(Enums.UP) || direction.equals(Enums.DOWN)) {
+        } else if (direction.equals(Enums.UP) || direction.equals(Enums.DOWN)) {
             img.setY(newPosY);
-        }
-        else {
+        } else {
             img.setX(newPosX);
             img.setY(newPosY);
         }
-    }
 
+    }
 }

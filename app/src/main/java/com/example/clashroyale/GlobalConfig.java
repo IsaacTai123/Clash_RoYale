@@ -4,6 +4,8 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.google.android.material.internal.DescendantOffsetUtils;
+
 public class GlobalConfig {
 
     public static int screenWidth;
@@ -11,11 +13,17 @@ public class GlobalConfig {
     public static MainActivity mainActivity;
     public static int pathOne_Left;
     public static int pathOne_Right;
+    public static int pathMiddle;
     public static int pathTwo_Left;
     public static int pathTwo_Right;
 
     public GlobalConfig() {
        calcPath();
+    }
+
+    public static void init(MainActivity main) {
+        getScreenSize(main);
+        calcPath();
     }
 
     public static void getScreenSize(MainActivity main) {
@@ -32,9 +40,10 @@ public class GlobalConfig {
         return mainActivity;
     }
 
-    public void calcPath() {
+    public static void calcPath() {
         pathOne_Left = (screenWidth / 4) - 20;
         pathOne_Right = (pathOne_Left + 40);
+        pathMiddle = screenWidth / 2;
         pathTwo_Left = (screenWidth / 4 * 3) - 20;
         pathTwo_Right = (pathTwo_Left + 40);
     }

@@ -1,6 +1,7 @@
 package com.example.clashroyale.controller;
 
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -29,7 +30,9 @@ public class BattleStart {
         constraintLayout = (ConstraintLayout) main.findViewById(R.id.mainView);  //抓整個Layout
         initViewElement = new InitViewElement(main);  //Init Element to Object
 
-        GlobalConfig.getScreenSize(main);
+        GlobalConfig.init(main);
+//        Log.e("screen", ""+GlobalConfig.screenWidth);
+//        Log.e("screen", ""+GlobalConfig.pathOne_Left);
 
     }
 

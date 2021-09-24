@@ -1,5 +1,6 @@
 package com.example.clashroyale.view;
 
+import android.media.Image;
 import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -73,9 +74,32 @@ public class CreateCardInstance {
         conLay.addView(cardInstance);
 
         // 讓腳色開始移動
+//        MoveCard moveCard = new MoveCard(clickX, clickY, cardInstance);
+//        Thread thread = new Thread(moveCard);
+//        thread.start();
         MoveAction moveAction = new MoveAction();
         GameLogic gameLogic = new GameLogic();
-        gameLogic.troopCardMovedLogic(moveAction, clickX, clickY, 1, GlobalConfig.pathOne_Left, cardInstance);
+        gameLogic.troopCardMovedLogic(moveAction, clickX, clickY, 1, cardInstance);
+    }
 
+}
+
+class MoveCard implements Runnable {
+
+    private float clickX;
+    private float clickY;
+    private ImageView cardInstance;
+
+    public MoveCard(float clickX, float clickY, ImageView cardInstance) {
+        this.cardInstance = cardInstance;
+        this.clickX = clickX;
+        this.clickY = clickY;
+    }
+
+    @Override
+    public void run() {
+            MoveAction moveAction = new MoveAction();
+            GameLogic gameLogic = new GameLogic();
+            gameLogic.troopCardMovedLogic(moveAction, clickX, clickY, 1, cardInstance);
     }
 }
