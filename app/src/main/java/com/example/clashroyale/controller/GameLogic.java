@@ -1,12 +1,24 @@
 package com.example.clashroyale.controller;
 
+import android.util.Log;
 import android.widget.ImageView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import com.example.clashroyale.MainActivity;
-import com.example.clashroyale.R;
+
+import com.example.clashroyale.Enums;
+import com.example.clashroyale.GlobalConfig;
+import com.example.clashroyale.view.MoveAction;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameLogic {
+
     ImageView selectedCard;
+
+    // variable
+
+    public GameLogic() {
+    }
 
     // 儲存玩家點選的卡牌( 下次點選時需使用這個來看該放置哪一張卡牌)
     public void currentCardSelected(ImageView imgB)
@@ -16,69 +28,104 @@ public class GameLogic {
 
     public ImageView getSelectedCard() { return selectedCard; }
 
-    public void createCardInstance(ConstraintLayout conLay, MainActivity mainActivity, ImageView img, float clickX, float clickY)
-    {
-        // 新增圖片
-        ImageView cardInstance = new ImageView(mainActivity);
+    // TODO: 製作移動的規則 (往什麼方向, 斜角? 或是往敵人走去? 遇到敵人則停下攻擊)
+    public void troopCardMovedLogic(MoveAction moveAction, float clickX, float clickY, int step, int pathX, ImageView img) {
 
-        String[] idName = new String[8];
-        idName[0] = "archor_instance";
+        AtomicInteger imgX = new AtomicInteger();
+        AtomicInteger imgY = new AtomicInteger();
+        img.post(() -> {
+            imgX.set((int) img.getX());
+            imgY.set((int) img.getY());
+            Log.e("getX", ""+img.getX());
+        });
 
-        // 將現在選擇的卡牌對應到相應的腳色人物
-        switch (img.getId())
-        {
-            case R.id.archor_card:
-                // 建立一個archor 的實力物件 (立體圖)
-                cardInstance.setImageResource(R.drawable.archor_instance);
-                // TODO: 給每一個新增的實力一個獨一的ID - 方便後面操作
-                break;
-
-            case R.id.giant_card:
-                // 建立一個archor 的實力物件 (立體圖)
-                cardInstance.setImageResource(R.drawable.giant_instance);
-                break;
-
-//            case R.id.giant_card:
-//                // 建立一個archor 的實力物件 (立體圖)
-//                cardInstance.setImageResource(R.drawable.giant_instance);
-//                break;
+        // 依照放置的位置判斷行走的方向
+        // 若腳色放置的x軸座標是在第1塊的時候要讓他往右上移動 (直到碰到路徑)
+//        if (clickX < quarter) {
+//            boolean cond = movingRightUp_logic(moveAction, step, pathX, img);
+//            if (!cond) {
+//                movingUp_logic(moveAction, step, pathX, img);
+//            }
 //
-//            case R.id.giant_card:
-//                // 建立一個archor 的實力物件 (立體圖)
-//                cardInstance.setImageResource(R.drawable.giant_instance);
-//                break;
 //
-//            case R.id.archor_card:
-//                // 建立一個archor 的實力物件 (立體圖)
-//                cardInstance.setImageResource(R.drawable.archor_instance);
-//                break;
-//
-//            case R.id.giant_card:
-//                // 建立一個archor 的實力物件 (立體圖)
-//                cardInstance.setImageResource(R.drawable.giant_instance);
-//                break;
-//
-//            case R.id.giant_card:
-//                // 建立一個archor 的實力物件 (立體圖)
-//                cardInstance.setImageResource(R.drawable.giant_instance);
-//                break;
-//
-//            case R.id.giant_card:
-//                // 建立一個archor 的實力物件 (立體圖)
-//                cardInstance.setImageResource(R.drawable.giant_instance);
-//                break;
-        }
+//        }
+        boolean cond = movingRightUp_logic(moveAction, step, img, imgX, imgY);
+    }
 
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(150, 150);
-        params.leftMargin = (int) (clickX - 75);  //因為透過getX抓到的座標位置是滑鼠點擊的地方, 所以產生的圖片會是從左上角開始(這邊調整至中)
-        params.topMargin = (int) (clickY - 75);
-        params.startToStart = conLay.getId(); // 取得layout最外層的ID, 也就是activity_main.xml 的parent.
-        params.topToTop = conLay.getId();
+    public void movingUp_logic(MoveAction moveAction, int step, ImageView img, AtomicInteger imgX, AtomicInteger imgY) {
+        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
+//        Handler handler = new Handler();
 
-        cardInstance.setLayoutParams(params);
-        conLay.addView(cardInstance);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int x = imgX.get();
+                int y = imgY.getAndAdd(-step);
 
-        // 選擇的牌只能出一次, 所以建立完之後就清掉
-        currentCardSelected(null);
+//                imgX -= step;  //y座標
+                    // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
+                if (img.getY() < 0) {
+                    timer.cancel();
+                }
+                moveAction.startMoving(Enums.UP, x, y, img);
+            }
+        }, 0, 20);
+    }
+
+    public void movingLeft_logic(MoveAction moveAction, int step, ImageView img, AtomicInteger imgX, AtomicInteger imgY) {
+        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
+//        Handler handler = new Handler();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int x = imgX.getAndAdd(-step);
+                int y = imgY.get();
+
+//                imgXY[0] -= step; //x 座標
+                    // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
+                if (img.getX() < 0) {
+                    timer.cancel();
+                }
+                moveAction.startMoving(Enums.LEFT, x, y, img);
+            }
+        }, 0, 20);
+    }
+
+    public boolean movingRightUp_logic(MoveAction moveAction, int step, ImageView img, AtomicInteger imgX, AtomicInteger imgY) {
+        boolean[] condition = {true};
+        Timer timer = new Timer();  //每次呼叫都建立一個新的timer 物件, 用來負責各個腳色的移動
+//        Handler handler = new Handler();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int leftFrame = (int) (img.getX() + img.getWidth());
+                int x = imgX.getAndAdd(step); //x 座標
+                int y = imgY.getAndAdd(-step); //y 座標
+
+                    // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
+                if (leftFrame > GlobalConfig.screenWidth) {
+                    condition[0] = false;
+                    timer.cancel();
+                }
+                moveAction.startMoving(Enums.RIGHT_UP, x, y, img);
+            }
+        }, 0, 20);
+        return condition[0];
+    }
+
+    public AtomicInteger[] getImageValue(ImageView img) {
+        AtomicInteger imgX = new AtomicInteger();
+        AtomicInteger imgY = new AtomicInteger();
+        img.post(() -> {
+            imgX.set((int) img.getX());
+            imgY.set((int) img.getY());
+            Log.e("getX", ""+img.getX());
+        });
+
+        AtomicInteger[] res = {imgX, imgY};
+
+        return res;
     }
 }

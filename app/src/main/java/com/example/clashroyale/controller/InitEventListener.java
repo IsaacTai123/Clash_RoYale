@@ -10,21 +10,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
+import com.example.clashroyale.view.CreateCardInstance;
 import com.example.clashroyale.view.InitViewElement;
+import com.example.clashroyale.view.MoveAction;
 
 public class InitEventListener {
     private ImageButton card_archor;
     private ImageButton card_hogrider;
-    private int screenHeight;
-    private int screenWidth;
     final float[] clickX = new float[1];
     final float[] clickY = new float[1];
-    GameLogic methods;
+    GameLogic methods = new GameLogic();
+    CreateCardInstance createCard;
 
-    public InitEventListener(int screenHeight, int screenWidth, InitViewElement ive) {
+    public InitEventListener(InitViewElement ive) {
         this.card_archor = ive.card_archor;
         this.card_hogrider = ive.card_hogrider;
-        methods = new GameLogic();
+        createCard = new CreateCardInstance();
     }
 
     public void cardButtonEventListener() {
@@ -69,16 +70,21 @@ public class InitEventListener {
                 {
                     clickX[0] = event.getX();
                     clickY[0] = event.getY();
-                    methods.createCardInstance(
+
+                    // 創建卡牌腳色
+                    createCard.createCardInstance(
                             mainView,
                             mainActivity,
                             methods.getSelectedCard(),
                             clickX[0],
                             clickY[0]
                     );
+
+                    // 選擇的牌只能出一次, 所以建立完之後就清掉
+                    methods.currentCardSelected(null);
                 }
-//                Log.e("click", "Left: array: "+event.getX());
-//                Log.e("click", "Top: array: "+event.getY());
+                Log.e("click", "Left: array: "+event.getX());
+                Log.e("click", "Top: array: "+event.getY());
                 return false;
             }
         };

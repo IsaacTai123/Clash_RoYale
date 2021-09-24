@@ -5,11 +5,20 @@ import redis.clients.jedis.JedisShardInfo;
 
 public class RedisCon {
 
-    public String getRedisData(){
+    private Jedis jedis;
+
+    public RedisCon() {
         JedisShardInfo shardInfo = new JedisShardInfo("150.117.238.70", 6379);
         shardInfo.setPassword("abc");
-        Jedis jedis = new Jedis(shardInfo);
+        jedis = new Jedis(shardInfo);
+    }
+
+    public String getRedisData(){
         String res = jedis.get("bag");
         return res;
+    }
+
+    public void setRedisData() {
+
     }
 }
