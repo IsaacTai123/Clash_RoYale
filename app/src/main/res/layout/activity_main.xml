@@ -8,13 +8,22 @@
         tools:context=".MainActivity">
 
     <TextView
+            android:id="@+id/nextText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next:"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/nextCard"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+            android:id="@+id/timerClock"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:text="3:00"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
             android:id="@+id/enemy_main_castle"
