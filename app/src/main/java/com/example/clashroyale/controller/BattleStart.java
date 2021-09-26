@@ -31,6 +31,7 @@ public class BattleStart {
         initViewElement = new InitViewElement(main);  //Init Element to Object
 
         GlobalConfig.init(main);
+//        GlobalConfig.initializeRedisConnections();
 //        Log.e("screen", ""+GlobalConfig.screenWidth);
 //        Log.e("screen", ""+GlobalConfig.pathOne_Left);
 

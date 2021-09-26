@@ -3,8 +3,15 @@ package com.example.clashroyale;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.clashroyale.controller.BattleStart;
+
+import java.util.HashMap;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisShardInfo;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //設定全螢幕顯示
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         // 進入遊戲畫面

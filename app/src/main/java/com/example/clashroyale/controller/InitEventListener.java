@@ -19,7 +19,7 @@ public class InitEventListener {
     private ImageButton card_hogrider;
     final float[] clickX = new float[1];
     final float[] clickY = new float[1];
-    GameLogic methods = new GameLogic();
+    GameLogic gameLogic = new GameLogic();
     CreateCardInstance createCard;
 
     public InitEventListener(InitViewElement ive) {
@@ -31,7 +31,7 @@ public class InitEventListener {
     public void cardButtonEventListener() {
         View.OnClickListener clickListener = v1 -> {
             ImageView currentImageView = null;
-            methods.currentCardSelected(currentImageView);
+            gameLogic.currentCardSelected(currentImageView);
 
             switch (v1.getId())
             {
@@ -48,8 +48,8 @@ public class InitEventListener {
 
             //TODO : 把current ImageView 丟給currentCardSelected
             if (currentImageView != null) {
-                methods.currentCardSelected(currentImageView);
-                ImageView v = methods.getSelectedCard();
+                gameLogic.currentCardSelected(currentImageView);
+                ImageView v = gameLogic.getSelectedCard();
                 Log.e("selectCard", ""+v.getTag());
             }
         };
@@ -64,7 +64,7 @@ public class InitEventListener {
         View.OnTouchListener touchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                ImageView currentImage = methods.selectedCard;
+                ImageView currentImage = gameLogic.selectedCard;
 
                 if (currentImage != null)
                 {
@@ -75,13 +75,13 @@ public class InitEventListener {
                     createCard.createCardInstance(
                             mainView,
                             mainActivity,
-                            methods.getSelectedCard(),
+                            gameLogic.getSelectedCard(),
                             clickX[0],
                             clickY[0]
                     );
 
                     // 選擇的牌只能出一次, 所以建立完之後就清掉
-                    methods.currentCardSelected(null);
+                    gameLogic.currentCardSelected(null);
                 }
                 Log.e("click", "Left: array: "+event.getX());
                 Log.e("click", "Top: array: "+event.getY());

@@ -8,6 +8,8 @@ import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
 import com.example.clashroyale.controller.GameLogic;
+import com.example.clashroyale.models.Archor;
+import com.example.clashroyale.models.ICard;
 
 public class CreateCardInstance {
 
@@ -15,9 +17,11 @@ public class CreateCardInstance {
     {
         // 新增圖片
         ImageView cardInstance = new ImageView(mainActivity);
+        int id = GlobalConfig.generateIntId(6);
+        cardInstance.setId(id);
 
-        String[] idName = new String[8];
-        idName[0] = "archor_instance";
+//        String[] idName = new String[8];
+//        idName[0] = "archor_instance";
 
         // 將現在選擇的卡牌對應到相應的腳色人物
         switch (img.getId())
@@ -25,6 +29,9 @@ public class CreateCardInstance {
             case R.id.archor_card:
                 // 建立一個archor 的實力物件 (立體圖)
                 cardInstance.setImageResource(R.drawable.archor_instance);
+//                Archor archor = new Archor(cardInstance);
+//                cardInstance.setImageResource(archor.getImageRedId());
+
                 // TODO: 給每一個新增的實力一個獨一的ID - 方便後面操作
                 break;
 

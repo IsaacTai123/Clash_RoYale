@@ -6,11 +6,16 @@ import android.os.Handler;
 
 import com.example.clashroyale.Enums;
 import com.example.clashroyale.GlobalConfig;
+import com.example.clashroyale.db.RedisCon;
 import com.example.clashroyale.view.MoveAction;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisShardInfo;
 
 
 public class GameLogic {
@@ -24,9 +29,13 @@ public class GameLogic {
     private float clickX;
     private float clickY;
     private int step;
-    private ImageView img;
+    private ImageView imgUnit;
     private AtomicInteger[] imgXY;
+    private int[] imgUnitLeft_up, imgUnitLeft_down, imgUnitRight_up, imgUnitRight_down;  //分別對應圖形的四點座標
+    private int imgWidth, imgHeight;
     boolean condition = true;
+    private RedisCon redis;
+    private boolean cardIsAlive;
 
     public GameLogic() {
     }
@@ -45,7 +54,9 @@ public class GameLogic {
         this.clickX = clickX;
         this.clickY = clickY;
         this.step = step;
-        this.img = img;
+        this.imgUnit = img;
+        this.imgWidth = img.getWidth();
+        this.imgHeight = img.getHeight();
         imgXY = getImageValue(img);
 
 
@@ -61,7 +72,6 @@ public class GameLogic {
 
     // TODO: 製作移動的規則 (往什麼方向, 斜角? 或是往敵人走去? 遇到敵人則停下攻擊)
     public void troopCardMovedLogic() {
-
         // 依照放置的位置判斷行走的方向
         // 若腳色放置的x軸座標是在第1塊的時候要讓他往右上移動 (直到碰到路徑)
         if (clickX < GlobalConfig.pathOne_Left) {
@@ -82,27 +92,48 @@ public class GameLogic {
         }
     }
 
+    public void detectCollision() {
+        // 當物件在移動時 依照自己的攻擊範圍來查看 周圍的物件
+        calcFourCoordinate();
+
+        // range (攻擊範圍)
+        // 若是四個
+//        if ()
+
+    }
+
+    public void calcFourCoordinate() {
+        int x = imgXY[0].get();
+        int y = imgXY[1].get();
+
+        this.imgUnitLeft_up = new int[] {x, y};  //左上角
+        this.imgUnitLeft_down = new int[] {x, y + imgHeight};  //左下角
+        this.imgUnitRight_up = new int[] {x + imgWidth, y};  //右上角
+        this.imgUnitRight_down = new int[] {x + imgWidth, y + imgHeight};  //右下角
+    }
+
     public void movingUp_logic() {
         int x = imgXY[0].get();
         int y = imgXY[1].getAndAdd(-step);
 
         // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
-        if (img.getY() < 0) {
+        if (imgUnit.getY() < 0) {
             timer.cancel();
+//            Log.e("countImgsUnit", "現在有" + GlobalConfig.imgsPosition.size());
+            new Thread(() -> GlobalConfig.jedisCon.storeXYToRedis(GlobalConfig.imgsPosition)).start();
         }
-        moveAction.startMoving(Enums.UP, x, y, img);
+        moveAction.startMoving(Enums.UP, x, y, imgUnit);
     }
 
     public void movingLeft_logic() {
         int x = imgXY[0].getAndAdd(-step);
         int y = imgXY[1].get();
 
-//                imgXY[0] -= step; //x 座標
-            // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
-        if (img.getX() < 0) {
+        // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
+        if (imgUnit.getX() < 0) {
             timer.cancel();
         }
-        moveAction.startMoving(Enums.LEFT, x, y, img);
+        moveAction.startMoving(Enums.LEFT, x, y, imgUnit);
     }
 
     /**
@@ -110,32 +141,31 @@ public class GameLogic {
      * <br>
      * imgLeftFrame : 這個是圖片左邊的邊線x軸位置.當圖片左邊x軸碰到路徑的時候就停止動作
      */
-    public boolean movingRightUp_logic(Enums path) {
+    public void movingRightUp_logic(Enums path) {
 
         if (condition) {
-            int imgRightFrame = (int) (img.getX() + img.getWidth() / 2);
             int x = imgXY[0].getAndAdd(step); //x 座標
             int y = imgXY[1].getAndAdd(-step); //y 座標
+            int imgRightFrame = (int) (imgUnit.getX() + imgUnit.getWidth() / 2);
 
             switch (path) {
                 case PATH_ONE:
                     // 防止腳色超出螢幕 && 當圖片右邊邊界碰到路徑1 時就停止
                     if (imgRightFrame >= GlobalConfig.pathOne_Left) {
                         condition = false; // 如過碰到回傳false 停止這部分
-//                        timer.cancel();
                     }
                     break;
                 case PATH_TWO:
                     // 防止腳色超出螢幕 && 當圖片右邊邊界碰到路徑2 時就停止
                     if (imgRightFrame >= GlobalConfig.pathTwo_Left) {
                         condition = false;
-//                        timer.cancel();
                     }
                     break;
             }
-            moveAction.startMoving(Enums.RIGHT_UP, x, y, img);
+            moveAction.startMoving(Enums.RIGHT_UP, x, y, imgUnit);
+
+            // 把圖片當下的位置座標存入Redis
         }
-        return condition;
     }
 
     /**
@@ -143,20 +173,19 @@ public class GameLogic {
      * <br>
      * imgLeftFrame : 這個是圖片左邊的邊線x軸位置.當圖片左邊x軸碰到路徑的時候就停止動作
      */
-    public boolean movingLeftUp_logic(Enums path) {
+    public void movingLeftUp_logic(Enums path) {
 
         // 只有true 的時後才執行
         if (condition) {
-            int imgLeftFrame = (int) img.getX();
             int x = imgXY[0].getAndAdd(-step); //x 座標
             int y = imgXY[1].getAndAdd(-step); //y 座標
+            int imgLeftFrame = (int) imgUnit.getX() + imgUnit.getWidth() / 2;
 
             switch (path) {
                 case PATH_ONE:
                     // 防止腳色超出螢幕 && 當圖片左邊邊界碰到路徑1 時就停止
                     if (imgLeftFrame <= GlobalConfig.pathOne_Right) {
                         condition = false; //如果是碰到了就回傳false
-//                        timer.cancel();
                     }
                     break;
                 case PATH_TWO:
@@ -167,9 +196,9 @@ public class GameLogic {
                     }
                     break;
             }
-            moveAction.startMoving(Enums.LEFT_UP, x, y, img);
+            moveAction.startMoving(Enums.LEFT_UP, x, y, imgUnit);
+            // 把圖片當下的位置座標存入Redis
         }
-        return condition;
     }
 
     public AtomicInteger[] getImageValue(ImageView img) {
@@ -185,4 +214,6 @@ public class GameLogic {
 
         return res;
     }
+
+
 }
