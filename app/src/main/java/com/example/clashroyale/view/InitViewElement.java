@@ -1,28 +1,28 @@
 package com.example.clashroyale.view;
 
-import android.graphics.Point;
-import android.view.Display;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
+import com.example.clashroyale.controller.CardRandom;
 
 public class InitViewElement {
 
-    public ImageView archor;
-    public ImageButton card_archor;
-    public ImageButton card_hogrider;
+    public ImageButton cardOne, cardTwo, cardThree, cardFour, nextCard;
 
-    public InitViewElement(MainActivity main)
+    public InitViewElement(MainActivity main, CardRandom cardRn)
     {
-        archor = (ImageView) main.findViewById(R.id.archor);
-        card_archor = (ImageButton) main.findViewById(R.id.archor_card);
-        card_hogrider = (ImageButton) main.findViewById(R.id.hogRider_card);
+        cardOne = main.findViewById(R.id.cardOne);
+        cardTwo = main.findViewById(R.id.cardTwo);
+        cardThree = main.findViewById(R.id.cardThree);
+        cardFour = main.findViewById(R.id.cardFour);
+        nextCard = main.findViewById(R.id.nextCard);
+
+        ImageView[] imgs = {cardOne, cardTwo, cardThree, cardFour, nextCard};
+        cardRn.reOrganize();
+        cardRn.setStartImageResources(imgs);
 
     }
-
 }

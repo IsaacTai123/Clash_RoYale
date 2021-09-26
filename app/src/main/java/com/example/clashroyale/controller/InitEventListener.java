@@ -10,52 +10,42 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
+import com.example.clashroyale.models.ICard;
 import com.example.clashroyale.view.CreateCardInstance;
 import com.example.clashroyale.view.InitViewElement;
 import com.example.clashroyale.view.MoveAction;
 
 public class InitEventListener {
-    private ImageButton card_archor;
-    private ImageButton card_hogrider;
+
+    private ImageButton cardOne;
+    private ImageButton cardTwo;
+    private ImageButton cardThree;
+    private ImageButton cardFour;
+
     final float[] clickX = new float[1];
     final float[] clickY = new float[1];
     GameLogic gameLogic = new GameLogic();
     CreateCardInstance createCard;
+    CardRandom cardRn;
 
-    public InitEventListener(InitViewElement ive) {
-        this.card_archor = ive.card_archor;
-        this.card_hogrider = ive.card_hogrider;
+    public InitEventListener(InitViewElement ive, CardRandom cardRandom) {
         createCard = new CreateCardInstance();
+        cardRn = cardRandom;
+        this.cardOne = ive.cardOne;
+        this.cardTwo = ive.cardTwo;
+        this.cardThree = ive.cardThree;
+        this.cardFour = ive.cardFour;
     }
 
     public void cardButtonEventListener() {
         View.OnClickListener clickListener = v1 -> {
-            ImageView currentImageView = null;
-            gameLogic.currentCardSelected(currentImageView);
-
-            switch (v1.getId())
-            {
-                case R.id.archor_card:
-                    Log.e("card", "this is archor");
-                    currentImageView = v1.findViewById(R.id.archor_card);
-                    break;
-
-                case R.id.hogRider_card:
-                    Log.e("card", "this is hog");
-                    currentImageView = v1.findViewById(R.id.hogRider_card);
-                    break;
-            }
-
-            //TODO : 把current ImageView 丟給currentCardSelected
-            if (currentImageView != null) {
-                gameLogic.currentCardSelected(currentImageView);
-                ImageView v = gameLogic.getSelectedCard();
-                Log.e("selectCard", ""+v.getTag());
-            }
+            gameLogic.currentSelectedCard(v1);
         };
 
-        card_archor.setOnClickListener(clickListener);
-        card_hogrider.setOnClickListener(clickListener);
+        cardOne.setOnClickListener(clickListener);
+        cardTwo.setOnClickListener(clickListener);
+        cardThree.setOnClickListener(clickListener);
+        cardFour.setOnClickListener(clickListener);
     }
 
     // 點擊螢幕召喚卡牌
@@ -64,9 +54,9 @@ public class InitEventListener {
         View.OnTouchListener touchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                ImageView currentImage = gameLogic.selectedCard;
+                ICard currentSelectedCard = gameLogic.getSelectedCard();
 
-                if (currentImage != null)
+                if (currentSelectedCard != null)
                 {
                     clickX[0] = event.getX();
                     clickY[0] = event.getY();
@@ -75,13 +65,15 @@ public class InitEventListener {
                     createCard.createCardInstance(
                             mainView,
                             mainActivity,
-                            gameLogic.getSelectedCard(),
+                            currentSelectedCard,
                             clickX[0],
                             clickY[0]
                     );
 
                     // 選擇的牌只能出一次, 所以建立完之後就清掉
-                    gameLogic.currentCardSelected(null);
+                    gameLogic.cleanSelectedCard();
+                    // 清掉之後還要把下一張牌填到這個空位
+                    cardRn.nextCard(gameLogic.getSelectedButton());
                 }
                 Log.e("click", "Left: array: "+event.getX());
                 Log.e("click", "Top: array: "+event.getY());

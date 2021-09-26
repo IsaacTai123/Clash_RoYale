@@ -7,6 +7,14 @@
         android:id="@+id/mainView"
         tools:context=".MainActivity">
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next:"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/nextCard"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
             android:id="@+id/enemy_main_castle"
@@ -85,53 +93,54 @@
             app:layout_constraintVertical_bias="0.79" />
 
     <ImageButton
-            android:id="@+id/archor_card"
-            android:tag="card_archor"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/nextCard"
+            android:tag="nextCard"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginRight="20dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/archor_card" />
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
     <ImageButton
-            android:id="@+id/hogRider_card"
-            android:tag="card_hogRider"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/cardOne"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="95dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/archor_card"
-            android:src="@drawable/hogrider_card"/>
+            app:layout_constraintStart_toStartOf="parent"/>
+<!--            app:layout_constraintLeft_toRightOf="@+id/nextCard"/>-->
 
     <ImageButton
-            android:id="@+id/giant_card"
-            android:tag="giant_card"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/cardTwo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="170dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/hogRider_card"
-            android:src="@drawable/giant_card"/>
+            app:layout_constraintStart_toStartOf="parent"/>
+<!--            app:layout_constraintLeft_toRightOf="@+id/cardOne"/>-->
 
     <ImageButton
-            android:id="@+id/fireball_card"
-            android:tag="@string/fireball_card"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/cardThree"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="245dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/giant_card"
-            android:src="@drawable/fireball_card"/>
+            app:layout_constraintStart_toStartOf="parent"/>
+<!--            app:layout_constraintLeft_toRightOf="@+id/cardTwo"/>-->
 
     <ImageButton
-            android:id="@+id/zap_card"
-            android:tag="@string/fireball_card"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/cardFour"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="320dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/fireball_card"
-            android:src="@drawable/zap_card"/>
+            app:layout_constraintStart_toStartOf="parent"/>
+<!--            app:layout_constraintLeft_toRightOf="@+id/cardThree"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

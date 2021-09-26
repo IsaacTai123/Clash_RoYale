@@ -18,36 +18,32 @@ import java.util.concurrent.TimeUnit;
 
 public class BattleStart {
 
-    private MainActivity mainActivity;
-    private ConstraintLayout constraintLayout;
-    private InitEventListener initEventListener;
-    private InitViewElement initViewElement;
+    private final MainActivity mainActivity;
+    private final ConstraintLayout constraintLayout;
+    private final InitViewElement initViewElement;
+    private final CardRandom cardRn;
 
 
+    /**
+     * @param main MainActivity 的實例
+     *             進入Battle的程式進入點
+     */
     public BattleStart(MainActivity main) {
 
+        // 競賽開始畫面參數的初始化
         this.mainActivity = main;
-        constraintLayout = (ConstraintLayout) main.findViewById(R.id.mainView);  //抓整個Layout
-        initViewElement = new InitViewElement(main);  //Init Element to Object
+        constraintLayout = main.findViewById(R.id.mainView);  //抓整個Layout
+        cardRn = new CardRandom();
+        initViewElement = new InitViewElement(main, cardRn);  //Init Element to Object
 
         GlobalConfig.init(main);
-//        GlobalConfig.initializeRedisConnections();
-//        Log.e("screen", ""+GlobalConfig.screenWidth);
-//        Log.e("screen", ""+GlobalConfig.pathOne_Left);
-
     }
 
-    public void moveCard() throws InterruptedException {
-        Archor archor = new Archor(initViewElement.archor);
-//        MoveAction moveAction = new MoveAction();
-////        moveLogic.movingUp(1);
-////        moveLogic.movingLeft(1, 270);
-//
-//        GameLogic gameLogic = new GameLogic();
-//        gameLogic.movingUp_logic();
-//        gameLogic.troopCardMovedLogic();
-
-        initEventListener = new InitEventListener(initViewElement);
+    /**
+     * 把EventListener 做初始化
+     */
+    public void addEventListener() throws InterruptedException {
+        InitEventListener initEventListener = new InitEventListener(initViewElement, cardRn);
         initEventListener.cardButtonEventListener();
         initEventListener.playCardInstance(constraintLayout, mainActivity);
     }

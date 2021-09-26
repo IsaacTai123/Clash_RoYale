@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
 
         try {
-            battleStart.moveCard();
+            battleStart.addEventListener();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,30 +1,39 @@
 package com.example.clashroyale.controller;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.os.Handler;
 
 import com.example.clashroyale.Enums;
 import com.example.clashroyale.GlobalConfig;
-import com.example.clashroyale.db.RedisCon;
+import com.example.clashroyale.R;
+import com.example.clashroyale.models.Archor;
+import com.example.clashroyale.models.FireBall;
+import com.example.clashroyale.models.Giant;
+import com.example.clashroyale.models.ICard;
+import com.example.clashroyale.models.IceWizard;
+import com.example.clashroyale.models.Peeka;
+import com.example.clashroyale.models.Bowler;
+import com.example.clashroyale.models.Wizard;
+import com.example.clashroyale.models.Zap;
 import com.example.clashroyale.view.MoveAction;
 
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisShardInfo;
-
 
 public class GameLogic {
 
-    ImageView selectedCard;
     Timer timer = new Timer();
     Handler handler = new Handler();
 
     // variable
+    private ICard selectedCard;
+    private ImageButton selectedButton;
     private MoveAction moveAction;
     private float clickX;
     private float clickY;
@@ -34,20 +43,73 @@ public class GameLogic {
     private int[] imgUnitLeft_up, imgUnitLeft_down, imgUnitRight_up, imgUnitRight_down;  //分別對應圖形的四點座標
     private int imgWidth, imgHeight;
     boolean condition = true;
-    private RedisCon redis;
     private boolean cardIsAlive;
 
     public GameLogic() {
     }
 
+
+    /**
+     * @param imgV 點擊圖片按鈕傳回來的View物件<br>
+     *             抓取當下玩家點選的圖片, 並記錄起來
+     */
     // 儲存玩家點選的卡牌( 下次點選時需使用這個來看該放置哪一張卡牌)
-    public void currentCardSelected(ImageView imgB)
+    @SuppressLint("NonConstantResourceId")
+    public void currentSelectedCard(View imgV)
     {
-        this.selectedCard = imgB;
+        switch (imgV.getId())
+        {
+            case R.id.archor_card:
+                selectedButton = imgV.findViewById(R.id.archor_card);
+                this.selectedCard = new Archor();
+                break;
+            case R.id.giant_card:
+                selectedButton = imgV.findViewById(R.id.giant_card);
+                this.selectedCard = new Giant();
+                break;
+            case R.id.fireBall_card:
+                selectedButton = imgV.findViewById(R.id.fireBall_card);
+                this.selectedCard = new FireBall();
+                break;
+            case R.id.iceWizard_card:
+                selectedButton = imgV.findViewById(R.id.iceWizard_card);
+                this.selectedCard = new IceWizard();
+                break;
+            case R.id.peeka_card:
+                selectedButton = imgV.findViewById(R.id.peeka_card);
+                this.selectedCard = new Peeka();
+                break;
+            case R.id.bowler_card:
+                selectedButton = imgV.findViewById(R.id.bowler_card);
+                this.selectedCard = new Bowler();
+                break;
+            case R.id.wizard_card:
+                selectedButton = imgV.findViewById(R.id.wizard_card);
+                this.selectedCard = new Wizard();
+                break;
+            case R.id.zap_card:
+                selectedButton = imgV.findViewById(R.id.zap_card);
+                this.selectedCard = new Zap();
+                break;
+        }
     }
 
-    public ImageView getSelectedCard() { return selectedCard; }
+    /**
+     * 當玩家把牌放置到場上後, 呼叫這個method來清空selectedCard. 因為選一次牌只能出一次
+     */
+    public void cleanSelectedCard() {this.selectedCard = null; }
 
+    public ICard getSelectedCard() { return selectedCard; }
+    public ImageButton getSelectedButton() { return selectedButton; }
+
+    /**
+     * @param moveAction 設定圖片新的座標位置
+     * @param clickX 卡排放到場上的初始位置x座標
+     * @param clickY 卡排放到場上的初始位置y座標
+     * @param step 卡牌的移動速度
+     * @param img 新產生出的卡牌實例<br>
+     *            負責場面上卡牌的移動
+     */
     // 負責給別人呼叫( 物件移動的進入點)
     public void startTroopCardMovedLogic(MoveAction moveAction, float clickX, float clickY, int step, ImageView img) {
         this.moveAction = moveAction;
@@ -70,6 +132,9 @@ public class GameLogic {
         }, 0, 20);
     }
 
+    /**
+     * 卡牌移動的邏輯
+     */
     // TODO: 製作移動的規則 (往什麼方向, 斜角? 或是往敵人走去? 遇到敵人則停下攻擊)
     public void troopCardMovedLogic() {
         // 依照放置的位置判斷行走的方向
@@ -86,12 +151,18 @@ public class GameLogic {
         else if (clickX > GlobalConfig.pathTwo_Right)  {
             movingLeftUp_logic(Enums.PATH_TWO);
         }
+        else {
+            movingUp_logic();
+        }
 
         if (!condition) {
             movingUp_logic();
         }
     }
 
+    /**
+     * 負責偵測敵人卡牌的座標位置, 以及我方卡牌的位置, 防止重疊
+     */
     public void detectCollision() {
         // 當物件在移動時 依照自己的攻擊範圍來查看 周圍的物件
         calcFourCoordinate();
@@ -102,6 +173,9 @@ public class GameLogic {
 
     }
 
+    /**
+     * 計算圖片四個角的座標位置
+     */
     public void calcFourCoordinate() {
         int x = imgXY[0].get();
         int y = imgXY[1].get();
@@ -119,10 +193,9 @@ public class GameLogic {
         // 防止腳色超出螢幕 && 還有當移動到指定路徑的時候就只要往上走就好
         if (imgUnit.getY() < 0) {
             timer.cancel();
-//            Log.e("countImgsUnit", "現在有" + GlobalConfig.imgsPosition.size());
             new Thread(() -> GlobalConfig.jedisCon.storeXYToRedis(GlobalConfig.imgsPosition)).start();
         }
-        moveAction.startMoving(Enums.UP, x, y, imgUnit);
+        moveAction.startMoving(x, y, imgUnit);
     }
 
     public void movingLeft_logic() {
@@ -133,7 +206,7 @@ public class GameLogic {
         if (imgUnit.getX() < 0) {
             timer.cancel();
         }
-        moveAction.startMoving(Enums.LEFT, x, y, imgUnit);
+        moveAction.startMoving(x, y, imgUnit);
     }
 
     /**
@@ -162,7 +235,7 @@ public class GameLogic {
                     }
                     break;
             }
-            moveAction.startMoving(Enums.RIGHT_UP, x, y, imgUnit);
+            moveAction.startMoving(x, y, imgUnit);
 
             // 把圖片當下的位置座標存入Redis
         }
@@ -196,7 +269,7 @@ public class GameLogic {
                     }
                     break;
             }
-            moveAction.startMoving(Enums.LEFT_UP, x, y, imgUnit);
+            moveAction.startMoving(x, y, imgUnit);
             // 把圖片當下的位置座標存入Redis
         }
     }

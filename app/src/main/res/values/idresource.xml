@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="archor" type="id"/>
-    <item name="wizard" type="id"/>
-    <item name="knight" type="id"/>
+    <item name="archor_card" type="id"/>
+    <item name="wizard_card" type="id"/>
+    <item name="bowler_card" type="id"/>
+    <item name="peeka_card" type="id"/>
+    <item name="iceWizard_card" type="id"/>
+    <item name="zap_card" type="id"/>
+    <item name="fireBall_card" type="id"/>
+    <item name="giant_card" type="id"/>
 </resources>

@@ -6,9 +6,10 @@ import android.widget.ImageView;
 public class MovingObject {
     protected float x;
     protected float y;
-    protected float width;
-    protected float height;
-    protected int imageResId;
+    protected int width;
+    protected int height;
+    protected int imageResId_ins;
+    protected int imageResId_card;
     protected ImageView imgUnit;
 
     public float getX() {
@@ -27,24 +28,28 @@ public class MovingObject {
         this.y = y;
     }
 
-    public float getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(float width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public int getImageRedId() {
-        return imageResId;
+    public int getImageResId_ins() {
+        return imageResId_ins;
+    }
+
+    public int getImageResId_card() {
+        return imageResId_card;
     }
 
 //    public void setImage(ImageView image) {

@@ -10,5 +10,13 @@ public enum Enums {
     LEFT_UP,
     LEFT_DOWN,
     PATH_ONE,
-    PATH_TWO
+    PATH_TWO,
+    ARCHOR,
+    GIANT,
+    FIREBALL,
+    ICEWIZARD,
+    WIZARD,
+    KNIGHT,
+    PRINCE,
+    ZAP
 }

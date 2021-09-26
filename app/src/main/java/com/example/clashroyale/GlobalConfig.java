@@ -1,19 +1,14 @@
 package com.example.clashroyale;
 
 import android.graphics.Point;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
 import com.example.clashroyale.db.IRedisCon;
 import com.example.clashroyale.db.RedisCon;
-import com.google.android.material.internal.DescendantOffsetUtils;
 
 import java.util.HashMap;
 import java.util.Random;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisShardInfo;
 
 public class GlobalConfig {
 
@@ -29,16 +24,20 @@ public class GlobalConfig {
     public static HashMap<String, String> imgsPosition;
 
 
-    public GlobalConfig() {
-       calcPath();
-    }
-
+    /**
+     * @param main 把MainActivity傳進來<br>
+     *             這邊做初始化後面程式需要調動的變數
+     */
     public static void init(MainActivity main) {
+        calcPath();
         getScreenSize(main);
         calcPath();
         initializeRedisConnections();
     }
 
+    /**
+     * 計算螢幕的長寬
+     */
     public static void getScreenSize(MainActivity main) {
         mainActivity = main;
         WindowManager wm = main.getWindowManager();
@@ -53,6 +52,9 @@ public class GlobalConfig {
         return mainActivity;
     }
 
+    /**
+     * 計算畫面上能走路徑的X座標
+     */
     public static void calcPath() {
         pathOne_Left = (screenWidth / 4) - 70;
         pathOne_Right = (pathOne_Left + 60);
@@ -61,12 +63,20 @@ public class GlobalConfig {
         pathTwo_Right = (pathTwo_Left + 60);
     }
 
+    /**
+     * @param imgId 創建出來的卡牌實例的Id<br>
+     * @param x 卡牌實例當下在畫面上的x座標<br>
+     * @param y 卡牌實例當下在畫面上的y座標
+     */
     public static void storeImgUnitXYData(String imgId, int x, int y) {
         String str = x + ", " + y;
         imgsPosition = new HashMap<>();
         imgsPosition.put(imgId, str);
     }
 
+    /**
+     * 建立連接redis資料庫的實例
+     */
     public static void initializeRedisConnections() {
         RedisCon jedisConnection = new RedisCon();
         jedisCon = jedisConnection;
@@ -91,6 +101,10 @@ public class GlobalConfig {
         return sb.toString();
       }
 
+    /**
+     * @param keylen 你要產生的uniqueId 的長度
+     * @return 獨立的int Type Unique ID.
+     */
     public static int generateIntId(int keylen) {
         String str = "12395678903123451784920";
         // 將字串變成Array 陣列
@@ -105,4 +119,5 @@ public class GlobalConfig {
         }
         return Integer.parseInt(sb.toString());
     }
+
 }
