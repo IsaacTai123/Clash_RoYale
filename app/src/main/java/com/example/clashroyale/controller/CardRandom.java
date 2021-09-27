@@ -21,7 +21,7 @@ public class CardRandom {
 
     private int nextInt = 4;
 //    private int[][] cardReOrganize = new int[8][2];
-    private ICard[] cardReOrganize;
+    private ICard[] cardReOrganize = new ICard[8];
     private ImageView[] imgArray;
 
     // 將陣列裡面的資料 隨機排序

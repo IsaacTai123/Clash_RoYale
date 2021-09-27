@@ -12,6 +12,6 @@ public class Peeka extends CardProperties {
         imageResId_card = R.drawable.peeka_card;
         imageId_card = R.id.peeka_card;
         cardName = "Peeka";
-        getDataFromJson(GlobalConfig.jsonString_troop);
+//        getDataFromJson(GlobalConfig.jsonString_troop);
     }
 }

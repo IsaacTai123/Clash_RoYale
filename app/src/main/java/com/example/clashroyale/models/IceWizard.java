@@ -12,6 +12,6 @@ public class IceWizard extends CardProperties {
         imageResId_card = R.drawable.ice_wizard_card;
         imageId_card = R.id.iceWizard_card;
         cardName = "IceWizard";
-        getDataFromJson(GlobalConfig.jsonString_troop);
+//        getDataFromJson(GlobalConfig.jsonString_troop);
     }
 }

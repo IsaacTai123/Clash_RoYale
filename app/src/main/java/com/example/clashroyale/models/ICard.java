@@ -4,6 +4,8 @@ import android.widget.ImageView;
 
  public interface ICard {
 
+    void getDataFromJson_troop(String jsonData);
+    void getDataFromJson_spell(String jsonData);
     float getX();
     void setX(float x);
     float getY();

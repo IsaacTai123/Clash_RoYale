@@ -141,7 +141,7 @@ public class MysqlCon implements IMysqlCon {
 
     public String[] getCardDeck(int playerId, int DeckId) {
         String[] cardDeck = {"card1", "card2", "card3", "card4", "card5", "card6", "card7", "card8"};
-        String[] cards = new String[cardDeck.length];
+        String[] cards = new String[8];
         try {
             connection = DriverManager.getConnection(url, username, password);
             String sql = "SELECT * FROM `CardDeck` Where playerId = 1 and id=" + DeckId +";";

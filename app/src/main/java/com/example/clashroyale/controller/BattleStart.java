@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
+import com.example.clashroyale.db.MysqlCon;
 import com.example.clashroyale.models.Archor;
 import com.example.clashroyale.models.Bowler;
 import com.example.clashroyale.models.FireBall;
@@ -34,6 +35,7 @@ public class BattleStart {
     private final ConstraintLayout constraintLayout;
     private final InitViewElement initViewElement;
     private final CardRandom cardRn;
+    private final ICard[] cards = new ICard[8];
 
 
     /**
@@ -48,8 +50,10 @@ public class BattleStart {
 
         GlobalConfig.init(main, 1);
         cardRn = new CardRandom();
+
         ICard[] cards = GlobalConfig.cardsInstance;
         cardRn.reOrganize(cards);
+//        Archor archor = new Archor();
         initViewElement = new InitViewElement(main, cardRn);  //Init Element to Object
     }
 

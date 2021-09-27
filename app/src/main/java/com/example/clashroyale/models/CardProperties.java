@@ -26,13 +26,16 @@ public class CardProperties implements ICard {
     protected String range;
     protected int damage;
     protected int range_damage;
-    protected int area_Damage;
+    protected int area_damage;
     protected float projectile_range;
     protected float slowdown_duration;
     protected int elixir;
     protected String type;
+    protected int Radius;
+    protected int effective_duration;
+    protected int crown_tower_damage;
 
-     public void getDataFromJson(String jsonData) {
+     public void getDataFromJson_troop(String jsonData) {
 
         String[] value;
         String[] field = {"cardName", "HitPoints", "Speed", "HitSpeed", "Targets", "Range", "Damage", "Range Damage", "Area Damage", "Projectile Range", "slowdown Duration", "Elixir", "Type"};
@@ -45,11 +48,29 @@ public class CardProperties implements ICard {
             this.range = obj.getJSONObject(cardName).getString(field[5]);
             this.damage = Integer.parseInt(obj.getJSONObject(cardName).getString(field[6]));
             this.range_damage = Integer.parseInt(obj.getJSONObject(cardName).getString(field[7]));
-            this.area_Damage = Integer.parseInt(obj.getJSONObject(cardName).getString(field[8]));
+            this.area_damage = Integer.parseInt(obj.getJSONObject(cardName).getString(field[8]));
             this.projectile_range = Integer.parseInt(obj.getJSONObject(cardName).getString(field[9]));
             this.slowdown_duration = Integer.parseInt(obj.getJSONObject(cardName).getString(field[10]));
             this.elixir = Integer.parseInt(obj.getJSONObject(cardName).getString(field[11]));
             this.type = obj.getJSONObject(cardName).getString(field[12]);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getDataFromJson_spell(String jsonData) {
+
+        String[] value;
+        String[] field = {"CardName", "Radius", "Effective Duration", "Area Damage", "Crown Tower Damage", "Elixir", "Type"};
+        try {
+            JSONObject obj = new JSONObject(jsonData);
+            this.Radius = Integer.parseInt(obj.getJSONObject(cardName).getString(field[1]));
+            this.effective_duration = Integer.parseInt(obj.getJSONObject(cardName).getString(field[2]));
+            this.area_damage = Integer.parseInt(obj.getJSONObject(cardName).getString(field[3]));
+            this.crown_tower_damage = Integer.parseInt(obj.getJSONObject(cardName).getString(field[4]));
+            this.elixir = Integer.parseInt(obj.getJSONObject(cardName).getString(field[5]));
+            this.type = String.valueOf(Integer.parseInt(obj.getJSONObject(cardName).getString(field[6])));
         }
         catch (JSONException e) {
             e.printStackTrace();
@@ -153,7 +174,7 @@ public class CardProperties implements ICard {
 
     @Override
     public int getArea_Damage() {
-        return area_Damage;
+        return area_damage;
     }
 
     @Override

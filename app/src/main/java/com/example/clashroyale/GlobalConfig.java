@@ -31,7 +31,7 @@ public class GlobalConfig {
     public static HashMap<String, String> imgsPosition;
     public static String jsonString_troop;
     public static String jsonString_spell;
-    public static ICard[] cardsInstance;
+    public static ICard[] cardsInstance = new ICard[8];
 
 
 
@@ -111,7 +111,7 @@ public class GlobalConfig {
             IMysqlCon mysqlCon = mysql;
             String[] cardArray = mysqlCon.getCardDeck(playerId, 1);
             CardDeck cardDeck = new CardDeck();
-            cardsInstance = cardDeck.generateCardInstance(cardArray);
+//            cardsInstance = cardDeck.generateCardInstance(cardArray);
         }).start();
     }
 
@@ -122,8 +122,7 @@ public class GlobalConfig {
             jsonString_troop = mysqlCon.getCardTroopData(playerId);
             jsonString_spell = mysqlCon.getCardSpellData(playerId);
 
-            // init Card Instance
-            String[] cardArray = mysqlCon.getCardDeck(playerId, 1);
+            String[] cardArray = mysqlCon.getCardDeck(1, 1);
             CardDeck cardDeck = new CardDeck();
             cardsInstance = cardDeck.generateCardInstance(cardArray);
         }).start();

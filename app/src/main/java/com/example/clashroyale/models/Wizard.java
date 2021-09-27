@@ -12,6 +12,6 @@ public class Wizard extends CardProperties {
         imageResId_card = R.drawable.wizard_card;
         imageId_card = R.id.wizard_card;
         cardName = "Wizard";
-        getDataFromJson(GlobalConfig.jsonString_troop);
+//        getDataFromJson(GlobalConfig.jsonString_troop);
     }
 }

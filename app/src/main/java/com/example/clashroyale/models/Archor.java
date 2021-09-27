@@ -19,6 +19,6 @@ public class Archor extends CardProperties {
         imageResId_card = R.drawable.archor_card;
         imageId_card = R.id.archor_card;
         cardName = "Archor";
-        getDataFromJson(GlobalConfig.jsonString_troop);
+//        getDataFromJson(GlobalConfig.jsonString_troop);
     }
 }

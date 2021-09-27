@@ -1,6 +1,9 @@
 package com.example.clashroyale.controller;
 
+import android.provider.Settings;
+
 import com.example.clashroyale.Enums;
+import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.models.Archor;
 import com.example.clashroyale.models.Bowler;
 import com.example.clashroyale.models.FireBall;
@@ -15,6 +18,7 @@ import java.lang.reflect.WildcardType;
 import java.util.Locale;
 
 public class CardDeck {
+
 
     public void setCardDeck() {
 
@@ -36,29 +40,38 @@ public class CardDeck {
         {
             case "Archor":
                 card = new Archor();
+                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
                 break;
             case "Giant":
                 card = new Giant();
+                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
                 break;
             case "Bowler":
                 card = new Bowler();
-                break;
-            case "FireBall":
-                card = new FireBall();
+                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
                 break;
             case "IceWizard":
                 card = new IceWizard();
+                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
                 break;
             case "Peeka":
                 card = new Peeka();
+                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
                 break;
             case "Wizard":
                 card = new Wizard();
+                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
+                break;
+            case "FireBall":
+                card = new FireBall();
+                card.getDataFromJson_spell(GlobalConfig.jsonString_spell);
                 break;
             case "Zap":
                 card = new Zap();
+                card.getDataFromJson_spell(GlobalConfig.jsonString_spell);
                 break;
         }
+
         return card;
     }
 }
