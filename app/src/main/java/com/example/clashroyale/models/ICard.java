@@ -3,12 +3,6 @@ package com.example.clashroyale.models;
 import android.widget.ImageView;
 
  public interface ICard {
-//    float x = 0;
-//    float y = 0;
-//    float width;
-//    float height;
-//    int imageResId;
-//     ImageView imgUnit;
 
     float getX();
     void setX(float x);
@@ -20,5 +14,20 @@ import android.widget.ImageView;
     void setHeight(int height);
     int getImageResId_ins();
     int getImageResId_card();
+    int getImageId_card();
+    String getCardName();
+    int getHitPoints();
+    int getSpeed();
+    int getHitSpeed();
+    String getTargets();
+    String getRange();
+    int getDamage();
+    int getRange_damage();
+    int getArea_Damage();
+    float getProjectile_range();
+    float getSlowdown_duration();
+    int getElixir();
+    String getType();
+
 }
 

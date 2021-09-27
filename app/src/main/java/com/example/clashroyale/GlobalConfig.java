@@ -4,8 +4,14 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.example.clashroyale.controller.CardDeck;
+import com.example.clashroyale.db.IMysqlCon;
 import com.example.clashroyale.db.IRedisCon;
+import com.example.clashroyale.db.MysqlCon;
 import com.example.clashroyale.db.RedisCon;
+import com.example.clashroyale.models.Archor;
+import com.example.clashroyale.models.Giant;
+import com.example.clashroyale.models.ICard;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -21,18 +27,26 @@ public class GlobalConfig {
     public static int pathTwo_Left;
     public static int pathTwo_Right;
     public static IRedisCon jedisCon;
+//    public static IMysqlCon mysqlCon;
     public static HashMap<String, String> imgsPosition;
+    public static String jsonString_troop;
+    public static String jsonString_spell;
+    public static ICard[] cardsInstance;
+
 
 
     /**
      * @param main 把MainActivity傳進來<br>
      *             這邊做初始化後面程式需要調動的變數
      */
-    public static void init(MainActivity main) {
+    public static void init(MainActivity main, int playerId) {
         calcPath();
         getScreenSize(main);
         calcPath();
-        initializeRedisConnections();
+        initRedisConnections();
+//        initMySqlConnections(playerId);
+        initCardsData(playerId);
+//        initCardInstance(playerId);
     }
 
     /**
@@ -47,6 +61,7 @@ public class GlobalConfig {
         screenWidth = size.x;
         screenHeight = size.y;
     }
+
 
     public static MainActivity getMain() {
         return mainActivity;
@@ -77,9 +92,41 @@ public class GlobalConfig {
     /**
      * 建立連接redis資料庫的實例
      */
-    public static void initializeRedisConnections() {
+    public static void initRedisConnections() {
         RedisCon jedisConnection = new RedisCon();
         jedisCon = jedisConnection;
+    }
+
+    public static void initMySqlConnections(int playerId) {
+//            MysqlCon mysql = new MysqlCon();
+//            mysqlCon = mysql;
+    }
+
+    /**
+     * 把玩家選定的卡牌組給讀出來(玩家可以有多個卡牌組)
+     */
+    public static void initCardInstance(int playerId) {
+        new Thread(() -> {
+            MysqlCon mysql = new MysqlCon();
+            IMysqlCon mysqlCon = mysql;
+            String[] cardArray = mysqlCon.getCardDeck(playerId, 1);
+            CardDeck cardDeck = new CardDeck();
+            cardsInstance = cardDeck.generateCardInstance(cardArray);
+        }).start();
+    }
+
+    public static void initCardsData(int playerId) {
+        new Thread(() -> {
+            MysqlCon mysql = new MysqlCon();
+            IMysqlCon mysqlCon = mysql;
+            jsonString_troop = mysqlCon.getCardTroopData(playerId);
+            jsonString_spell = mysqlCon.getCardSpellData(playerId);
+
+            // init Card Instance
+            String[] cardArray = mysqlCon.getCardDeck(playerId, 1);
+            CardDeck cardDeck = new CardDeck();
+            cardsInstance = cardDeck.generateCardInstance(cardArray);
+        }).start();
     }
 
     public static String generateStringId(int keylen) {
@@ -119,5 +166,17 @@ public class GlobalConfig {
         }
         return Integer.parseInt(sb.toString());
     }
+
+    public static String stringToJsonFormat(String name, String[] field, String[] values) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"").append(name).append("\"").append(":").append("{");
+        for (int i=0; i < field.length; i++) {
+            sb.append("\"").append(field[i]).append("\"").append(":").append("\"").append(values[i]).append("\"");
+            if (i != field.length - 1) sb.append(",");
+        }
+        sb.append("}");
+        return sb.toString();
+    }
+
 
 }

@@ -40,10 +40,10 @@ public class GameLogic {
     private int step;
     private ImageView imgUnit;
     private AtomicInteger[] imgXY;
-    private int[] imgUnitLeft_up, imgUnitLeft_down, imgUnitRight_up, imgUnitRight_down;  //分別對應圖形的四點座標
     private int imgWidth, imgHeight;
     boolean condition = true;
     private boolean cardIsAlive;
+    private int[] imgUnitLeft_up, imgUnitLeft_down, imgUnitRight_up, imgUnitRight_down;  //分別對應圖形的四點座標
 
     public GameLogic() {
     }
@@ -111,11 +111,11 @@ public class GameLogic {
      *            負責場面上卡牌的移動
      */
     // 負責給別人呼叫( 物件移動的進入點)
-    public void startTroopCardMovedLogic(MoveAction moveAction, float clickX, float clickY, int step, ImageView img) {
+    public void startTroopCardMovedLogic(MoveAction moveAction, float clickX, float clickY, ImageView img, ICard card) {
         this.moveAction = moveAction;
         this.clickX = clickX;
         this.clickY = clickY;
-        this.step = step;
+        this.step = card.getSpeed();
         this.imgUnit = img;
         this.imgWidth = img.getWidth();
         this.imgHeight = img.getHeight();

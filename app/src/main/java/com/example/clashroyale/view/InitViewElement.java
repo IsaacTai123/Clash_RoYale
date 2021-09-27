@@ -9,6 +9,7 @@ import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
 import com.example.clashroyale.controller.CardRandom;
 import com.example.clashroyale.controller.TimerCountDown;
+import com.example.clashroyale.models.ICard;
 
 import org.w3c.dom.Text;
 
@@ -28,7 +29,6 @@ public class InitViewElement {
         nextCard = main.findViewById(R.id.nextCard);
 
         ImageView[] imgs = {cardOne, cardTwo, cardThree, cardFour, nextCard};
-        cardRn.reOrganize();
         cardRn.setStartImageResources(imgs);
         new TimerCountDown(timerText, main);
 

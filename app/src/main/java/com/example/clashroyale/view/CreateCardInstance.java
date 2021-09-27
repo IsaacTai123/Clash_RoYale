@@ -41,7 +41,7 @@ public class CreateCardInstance {
         MoveAction moveAction = new MoveAction();
         GameLogic gameLogic = new GameLogic();
         // TODO : 要把step依照卡牌輸入
-        gameLogic.startTroopCardMovedLogic(moveAction, clickX, clickY, 1, cardInstance);
+        gameLogic.startTroopCardMovedLogic(moveAction, clickX, clickY, cardInstance, card);
     }
 
 }

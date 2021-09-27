@@ -8,6 +8,8 @@ import android.view.WindowManager;
 
 import com.example.clashroyale.controller.BattleStart;
 
+import org.json.JSONException;
+
 import java.util.HashMap;
 
 import redis.clients.jedis.Jedis;
