@@ -22,7 +22,7 @@ public class MysqlCon implements IMysqlCon {
     String url = "jdbc:mysql://" + mysql_ip + ":" + mysql_port + "/" + db_name;
     Connection connection;
 
-    public MysqlCon() {
+    public void init() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Log.v("DB", "LOAD SUCCESSFUL");
@@ -79,6 +79,7 @@ public class MysqlCon implements IMysqlCon {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
+            data += "{"; //在使用前給這個JSON 字串加上開頭
             while (result.next()) {
                 for (int i = 0; i < field.length; i++) {
                     values[i] = result.getString(field[i]);
@@ -88,7 +89,7 @@ public class MysqlCon implements IMysqlCon {
                     data = data + ",";
                 }
             }
-            data = data + "}";
+            data = data + "}";  //結束後加上結尾
 
             statement.close();
         } catch (SQLException e) {

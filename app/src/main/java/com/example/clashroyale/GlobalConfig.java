@@ -117,14 +117,15 @@ public class GlobalConfig {
 
     public static void initCardsData(int playerId) {
         new Thread(() -> {
-            MysqlCon mysql = new MysqlCon();
-            IMysqlCon mysqlCon = mysql;
+            IMysqlCon mysqlCon = new MysqlCon();
+            mysqlCon.init();
             jsonString_troop = mysqlCon.getCardTroopData(playerId);
             jsonString_spell = mysqlCon.getCardSpellData(playerId);
 
-            String[] cardArray = mysqlCon.getCardDeck(1, 1);
-            CardDeck cardDeck = new CardDeck();
-            cardsInstance = cardDeck.generateCardInstance(cardArray);
+//            String[] cardArray = mysqlCon.getCardDeck(1, 1);
+//            CardDeck cardDeck = new CardDeck();
+//            cardsInstance = cardDeck.generateCardInstance(cardArray);
+
         }).start();
     }
 
@@ -166,9 +167,17 @@ public class GlobalConfig {
         return Integer.parseInt(sb.toString());
     }
 
+    /**
+     * @param name Json資料型態裡面的key
+     * @param field  資料庫每個值對應的Title (字串列列Array)
+     * @param values 從資料庫讀對應讀取下來的值(字串陣列Array)
+     * @return String: 回傳JSON格式的字串 <br>
+     * 此methods 回傳的是Json資料, 但因為需要用來Loop 多個資料, 所以使用的時候要注意用法
+     * 在使用這個轉換的時候, 需再呼叫這個methods的前面加上一個 "{" 然後再呼叫完之後再加上一個結尾"}"
+     */
     public static String stringToJsonFormat(String name, String[] field, String[] values) {
         StringBuilder sb = new StringBuilder();
-        sb.append("{\"").append(name).append("\"").append(":").append("{");
+        sb.append(name).append("\"").append(":").append("{");
         for (int i=0; i < field.length; i++) {
             sb.append("\"").append(field[i]).append("\"").append(":").append("\"").append(values[i]).append("\"");
             if (i != field.length - 1) sb.append(",");

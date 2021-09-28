@@ -12,6 +12,6 @@ public class Giant extends CardProperties {
         imageResId_card = R.drawable.giant_card;
         imageId_card = R.id.giant_card;
         cardName = "Giant";
-//        getDataFromJson(GlobalConfig.jsonString_troop);
+        getDataFromJson_troop(GlobalConfig.jsonString_troop);
     }
 }

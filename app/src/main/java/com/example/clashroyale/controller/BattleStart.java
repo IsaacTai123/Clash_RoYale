@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class BattleStart {
@@ -35,7 +36,8 @@ public class BattleStart {
     private final ConstraintLayout constraintLayout;
     private final InitViewElement initViewElement;
     private final CardRandom cardRn;
-    private final ICard[] cards = new ICard[8];
+    private String[] cardArray;
+    private ICard[] cards;
 
 
     /**
@@ -51,9 +53,26 @@ public class BattleStart {
         GlobalConfig.init(main, 1);
         cardRn = new CardRandom();
 
-        ICard[] cards = GlobalConfig.cardsInstance;
+//        cards = GlobalConfig.cardsInstance;
+        Thread t = new Thread(() -> {
+            MysqlCon mysqlCon = new MysqlCon();
+            mysqlCon.init();
+            cardArray = mysqlCon.getCardDeck(1, 1);
+            Log.e("cardDeck", ""+ Arrays.toString(cardArray));
+        });
+        t.start();
+        try {
+            t.join();
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        cards = cardDeck.generateCardInstance(cardArray);
+
+        // 因為去資料庫讀資料需要點時間, 而程式還在繼續 所以資料還沒讀出來他就已經跑下面的程式所以帶入會是null
+        CardDeck cardDeck = new CardDeck();
+        cards = cardDeck.generateCardInstance(cardArray);
         cardRn.reOrganize(cards);
-//        Archor archor = new Archor();
         initViewElement = new InitViewElement(main, cardRn);  //Init Element to Object
     }
 

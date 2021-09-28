@@ -4,6 +4,7 @@ import com.example.clashroyale.models.ICard;
 
 public interface IMysqlCon {
 
+    void init();
     String getCardTroopData(int playerId);
     String getCardSpellData(int playerId);
     String getSpecificCardData(ICard card, int playerId);

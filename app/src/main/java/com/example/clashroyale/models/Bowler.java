@@ -12,6 +12,6 @@ public class Bowler extends CardProperties {
         imageResId_card = R.drawable.bowler_card;
         imageId_card = R.id.bowler_card;
         cardName = "Bowler";
-//        getDataFromJson(GlobalConfig.jsonString_troop);
+        getDataFromJson_troop(GlobalConfig.jsonString_troop);
     }
 }
