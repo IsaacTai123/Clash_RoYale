@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">clashRoyale</string>
+    <string name="archor_card">archor_card</string>
+    <string name="wizard_card">wizard_card</string>
+    <string name="knight_card">knight_card</string>
+    <string name="fireball_card">fireball_card</string>
 </resources>

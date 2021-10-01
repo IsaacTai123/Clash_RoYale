@@ -10,8 +10,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ClashRoyale">
         <activity
-                android:name=".view.MainActivity"
-                android:exported="true">
+                android:name=".MainActivity"
+                android:exported="true"
+                android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,5 +20,9 @@
             </intent-filter>
         </activity>
     </application>
+
+
+    <!--    使APP取得連接網路的權限-->
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
