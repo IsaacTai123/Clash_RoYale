@@ -12,6 +12,6 @@ public class FireBall extends CardProperties {
         imageResId_card = R.drawable.fireball_card;
         imageId_card = R.id.fireBall_card;
         cardName = "FireBall";
-        getDataFromJson_spell(GlobalConfig.jsonString_troop);
+        getDataFromJson_spell(GlobalConfig.jsonString_spell);
     }
 }

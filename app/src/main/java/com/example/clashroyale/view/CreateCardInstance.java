@@ -8,6 +8,8 @@ import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.controller.GameLogic;
 import com.example.clashroyale.models.ICard;
 
+import java.util.Locale;
+
 public class CreateCardInstance {
 
     /**
@@ -41,7 +43,9 @@ public class CreateCardInstance {
         MoveAction moveAction = new MoveAction();
         GameLogic gameLogic = new GameLogic();
         // TODO : 要把step依照卡牌輸入
-        gameLogic.startTroopCardMovedLogic(moveAction, clickX, clickY, cardInstance, card);
+        if (card.getType().toUpperCase(Locale.ROOT).equals("TROOP")) {
+            gameLogic.startTroopCardMovedLogic(moveAction, clickX, clickY, cardInstance, card);
+        }
     }
 
 }

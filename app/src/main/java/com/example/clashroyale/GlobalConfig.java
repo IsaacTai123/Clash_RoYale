@@ -27,11 +27,12 @@ public class GlobalConfig {
     public static int pathTwo_Left;
     public static int pathTwo_Right;
     public static IRedisCon jedisCon;
-//    public static IMysqlCon mysqlCon;
+    public static IMysqlCon mysqlCon;
     public static HashMap<String, String> imgsPosition;
     public static String jsonString_troop;
     public static String jsonString_spell;
     public static ICard[] cardsInstance = new ICard[8];
+    private static String[] cardArray;
 
 
 
@@ -44,7 +45,7 @@ public class GlobalConfig {
         getScreenSize(main);
         calcPath();
         initRedisConnections();
-//        initMySqlConnections(playerId);
+        initMySqlConnections(playerId);
         initCardsData(playerId);
 //        initCardInstance(playerId);
     }
@@ -98,35 +99,37 @@ public class GlobalConfig {
     }
 
     public static void initMySqlConnections(int playerId) {
-//            MysqlCon mysql = new MysqlCon();
-//            mysqlCon = mysql;
+            MysqlCon mysql = new MysqlCon();
+            mysqlCon = mysql;
     }
 
     /**
      * 把玩家選定的卡牌組給讀出來(玩家可以有多個卡牌組)
      */
     public static void initCardInstance(int playerId) {
-        new Thread(() -> {
             MysqlCon mysql = new MysqlCon();
             IMysqlCon mysqlCon = mysql;
-            String[] cardArray = mysqlCon.getCardDeck(playerId, 1);
+            cardArray = mysqlCon.getCardDeck(playerId, 1);
             CardDeck cardDeck = new CardDeck();
-//            cardsInstance = cardDeck.generateCardInstance(cardArray);
-        }).start();
+            cardsInstance = cardDeck.generateCardInstance(cardArray);
     }
 
+    /**
+     * @param playerId 玩家的ID號碼<br>
+     *                 Mysql的Data抓下來,並儲存到Global Variable
+     *                 <pre>cardsInstance 會儲存順序更改過後的ICard Array</pre>
+     *
+     */
     public static void initCardsData(int playerId) {
-        new Thread(() -> {
-            IMysqlCon mysqlCon = new MysqlCon();
             mysqlCon.init();
-            jsonString_troop = mysqlCon.getCardTroopData(playerId);
-            jsonString_spell = mysqlCon.getCardSpellData(playerId);
+            int sqlTroopCount = mysqlCon.getCountTroopData(playerId);
+            int sqlSpellCount = mysqlCon.getCountSpellData(playerId);
+            jsonString_troop = mysqlCon.getCardTroopData(playerId, sqlTroopCount);
+            jsonString_spell = mysqlCon.getCardSpellData(playerId, sqlSpellCount);
 
-//            String[] cardArray = mysqlCon.getCardDeck(1, 1);
-//            CardDeck cardDeck = new CardDeck();
-//            cardsInstance = cardDeck.generateCardInstance(cardArray);
-
-        }).start();
+            String[] cardArray = mysqlCon.getCardDeck(1, 1); //取出這次玩家所使用的8張卡牌
+            CardDeck cardDeck = new CardDeck();
+            cardsInstance = cardDeck.generateCardInstance(cardArray);
     }
 
     public static String generateStringId(int keylen) {
@@ -176,8 +179,8 @@ public class GlobalConfig {
      * 在使用這個轉換的時候, 需再呼叫這個methods的前面加上一個 "{" 然後再呼叫完之後再加上一個結尾"}"
      */
     public static String stringToJsonFormat(String name, String[] field, String[] values) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name).append("\"").append(":").append("{");
+       StringBuilder sb = new StringBuilder();
+        sb.append("\"").append(name).append("\"").append(":").append("{");
         for (int i=0; i < field.length; i++) {
             sb.append("\"").append(field[i]).append("\"").append(":").append("\"").append(values[i]).append("\"");
             if (i != field.length - 1) sb.append(",");

@@ -21,6 +21,7 @@ import com.example.clashroyale.models.Wizard;
 import com.example.clashroyale.models.Zap;
 import com.example.clashroyale.view.MoveAction;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -106,7 +107,6 @@ public class GameLogic {
      * @param moveAction 設定圖片新的座標位置
      * @param clickX 卡排放到場上的初始位置x座標
      * @param clickY 卡排放到場上的初始位置y座標
-     * @param step 卡牌的移動速度
      * @param img 新產生出的卡牌實例<br>
      *            負責場面上卡牌的移動
      */
@@ -115,12 +115,22 @@ public class GameLogic {
         this.moveAction = moveAction;
         this.clickX = clickX;
         this.clickY = clickY;
-        this.step = card.getSpeed();
         this.imgUnit = img;
         this.imgWidth = img.getWidth();
         this.imgHeight = img.getHeight();
         imgXY = getImageValue(img);
 
+        // 用來轉換卡牌的速度
+        String speed = card.getSpeed().toUpperCase(Locale.ROOT);
+        if (speed.equals("fast".toUpperCase(Locale.ROOT))) {
+            this.step = 3;
+        }
+        else if (speed.equals("slow".toUpperCase(Locale.ROOT))) {
+            this.step = 1;
+        }
+        else if (speed.equals("medium".toUpperCase(Locale.ROOT))) {
+            this.step = 2;
+        }
 
         // 讓移動的動作自成一個支線
         timer.schedule(new TimerTask() {
@@ -129,7 +139,7 @@ public class GameLogic {
                 // 這邊必須要使用handler 來觸發你的thread (如果不加會出問題)
                 handler.post(() -> troopCardMovedLogic());
             }
-        }, 0, 20);
+        }, 0, 40);
     }
 
     /**

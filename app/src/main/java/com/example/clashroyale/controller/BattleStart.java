@@ -36,8 +36,6 @@ public class BattleStart {
     private final ConstraintLayout constraintLayout;
     private final InitViewElement initViewElement;
     private final CardRandom cardRn;
-    private String[] cardArray;
-    private ICard[] cards;
 
 
     /**
@@ -50,15 +48,8 @@ public class BattleStart {
         this.mainActivity = main;
         constraintLayout = main.findViewById(R.id.mainView);  //抓整個Layout
 
-        GlobalConfig.init(main, 1);
-        cardRn = new CardRandom();
-
-//        cards = GlobalConfig.cardsInstance;
         Thread t = new Thread(() -> {
-            MysqlCon mysqlCon = new MysqlCon();
-            mysqlCon.init();
-            cardArray = mysqlCon.getCardDeck(1, 1);
-            Log.e("cardDeck", ""+ Arrays.toString(cardArray));
+            GlobalConfig.init(main, 1);
         });
         t.start();
         try {
@@ -67,12 +58,10 @@ public class BattleStart {
         catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        cards = cardDeck.generateCardInstance(cardArray);
 
-        // 因為去資料庫讀資料需要點時間, 而程式還在繼續 所以資料還沒讀出來他就已經跑下面的程式所以帶入會是null
-        CardDeck cardDeck = new CardDeck();
-        cards = cardDeck.generateCardInstance(cardArray);
-        cardRn.reOrganize(cards);
+        cardRn = new CardRandom();
+        // 因為去資料庫讀資料需要點時間, 而程式還在繼續 所以資料還沒讀出來他就已經跑下面的程式, 所以帶入會是null繼而得到錯誤訊息
+        cardRn.reOrganize(GlobalConfig.cardsInstance);
         initViewElement = new InitViewElement(main, cardRn);  //Init Element to Object
     }
 

@@ -11,7 +11,7 @@ public class Zap extends CardProperties {
         imageResId_ins = R.drawable.zap_instance;
         imageResId_card = R.drawable.zap_card;
         imageId_card = R.id.zap_card;
-        cardName = "zap";
-        getDataFromJson_spell(GlobalConfig.jsonString_troop);
+        cardName = "Zap";
+        getDataFromJson_spell(GlobalConfig.jsonString_spell);
     }
 }

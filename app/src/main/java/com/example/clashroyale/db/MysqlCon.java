@@ -41,89 +41,132 @@ public class MysqlCon implements IMysqlCon {
         }
     }
 
-    public String getCardTroopData(int playerId) {
-        String data = "";
-        String[] field = {"cardName", "HitPoints", "speed", "HitSpeed", "Targets", "Range", "Damage", "Range Damage", "Area Damage", "Projectile Range", "slowdown Duration", "Elixir", "Type"};
-        String[] values = new String[field.length];
+    public int getCountTroopData(int playerId) {
+        int count = 0;
         try {
             connection = DriverManager.getConnection(url, username, password);
-            String sql = "SELECT * FROM Card_Troop Where playerId = " + playerId + ";";
+            String sql = "SELECT COUNT(*) as Count FROM Card_Troop;";
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(sql);
-
-            while (result.next()) {
-                for (int i = 0; i < field.length; i++) {
-                    values[i] = result.getString(field[i]);
-                }
-                data += GlobalConfig.stringToJsonFormat(result.getString(field[0]), field, values);
-                if (result.next()) {
-                    data = data + ",";
-                }
-            }
-            data = data + "}";
+            ResultSet resultCount = statement.executeQuery(sql);
+            resultCount.next(); //須把cursor移動到數字的部分
+            count = resultCount.getInt("Count");
 
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return data;
+        return count;
     }
 
-    public String getSpecificCardData(ICard card, int playerId) {
-        String data = "";
+    public int getCountSpellData(int playerId) {
+        int count = 0;
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            String sql = "SELECT COUNT(*) as Count FROM Card_Spell;";
+            Statement statement = connection.createStatement();
+            ResultSet resultCount = statement.executeQuery(sql);
+            resultCount.next(); //須把cursor移動到數字的部分
+            count = resultCount.getInt("Count");
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public String getCardTroopData(int playerId, int sqlCount) {
+        StringBuilder data = new StringBuilder();
         String[] field = {"cardName", "HitPoints", "Speed", "HitSpeed", "Targets", "Range", "Damage", "Range Damage", "Area Damage", "Projectile Range", "slowdown Duration", "Elixir", "Type"};
         String[] values = new String[field.length];
+        int count = 1;
         try {
             connection = DriverManager.getConnection(url, username, password);
-            String sql = "SELECT * FROM Card_Troop Where playerId = "+ playerId + " and cardName='" + card.getCardName()+"';";
+            String sql = "SELECT * FROM `Card_Troop`;"; //Where playerId = " + playerId + ";";
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
+//            int resultCount = result.getMetaData().getColumnCount(); //取得Column取出的個數
 
-            data += "{"; //在使用前給這個JSON 字串加上開頭
+            data.append("{");   //在使用前給這個JSON 字串加上開頭
             while (result.next()) {
-                for (int i = 0; i < field.length; i++) {
+                for (int i=0; i<field.length; i++) {
                     values[i] = result.getString(field[i]);
                 }
-                data += GlobalConfig.stringToJsonFormat(result.getString(field[0]), field, values);
-                if (result.next()) {
-                    data = data + ",";
+                data.append(GlobalConfig.stringToJsonFormat(result.getString(field[0]), field, values));
+                if (count != sqlCount) {
+                    data.append(",");
                 }
+                count ++;
             }
-            data = data + "}";  //結束後加上結尾
+            data.append("}");   //結束後加上結尾
 
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return data;
+        return data.toString();
     }
 
-    public String getCardSpellData(int playerId) {
-        String data = "";
+    public String getSpecificCardData(ICard card, int playerId, int sqlCount) {
+        StringBuilder data = new StringBuilder();
+        String[] field = {"cardName", "HitPoints", "Speed", "HitSpeed", "Targets", "Range", "Damage", "Range Damage", "Area Damage", "Projectile Range", "slowdown Duration", "Elixir", "Type"};
+        String[] values = new String[field.length];
+        int count = 1;
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            String sql = "SELECT * FROM `Card_Troop` Where playerId = "+ playerId + " and cardName='" + card.getCardName()+"';";
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+
+            data.append("{");   //在使用前給這個JSON 字串加上開頭
+            while (result.next()) {
+                for (int i=0; i<field.length; i++) {
+                    values[i] = result.getString(field[i]);
+                }
+                data.append(GlobalConfig.stringToJsonFormat(result.getString(field[0]), field, values));
+                if (count != sqlCount) {
+                    data.append(",");
+                }
+                count ++;
+            }
+            data.append("}");   //結束後加上結尾
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data.toString();
+    }
+
+    public String getCardSpellData(int playerId, int sqlCount) {
+        StringBuilder data = new StringBuilder();
         String[] field = {"CardName", "Radius", "Effective Duration", "Area Damage", "Crown Tower Damage", "Elixir", "Type"};
         String[] values = new String[field.length];
+        int count = 1;
         try {
             connection = DriverManager.getConnection(url, username, password);
             String sql = "SELECT * FROM Card_Spell Where playerId = " + playerId + ";";
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
+            data.append("{");   //在使用前給這個JSON 字串加上開頭
             while (result.next()) {
-                for (int i = 0; i < field.length; i++) {
+                for (int i=0; i<field.length; i++) {
                     values[i] = result.getString(field[i]);
                 }
-                data += GlobalConfig.stringToJsonFormat(result.getString(field[0]), field, values);
-                if (result.next()) {
-                    data = data + ",";
+                data.append(GlobalConfig.stringToJsonFormat(result.getString(field[0]), field, values));
+                if (count != sqlCount) {
+                    data.append(",");
                 }
+                count ++;
             }
-            data = data + "}";
+            data.append("}");   //結束後加上結尾
 
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return data;
+        return data.toString();
     }
 
     public void setCardDeck(int playerId, ICard[] cards) {

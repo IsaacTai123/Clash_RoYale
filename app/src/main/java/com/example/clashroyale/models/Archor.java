@@ -21,4 +21,5 @@ public class Archor extends CardProperties {
         cardName = "Archor";
         getDataFromJson_troop(GlobalConfig.jsonString_troop);
     }
+
 }

@@ -40,35 +40,35 @@ public class CardDeck {
         {
             case "Archor":
                 card = new Archor();
-//                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
+//                card.initTroopData();
                 break;
             case "Giant":
                 card = new Giant();
-//                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
+//                card.initTroopData();
                 break;
             case "Bowler":
                 card = new Bowler();
-//                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
+//                card.initTroopData();
                 break;
             case "IceWizard":
                 card = new IceWizard();
-//                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
+//                card.initTroopData();
                 break;
             case "Peeka":
                 card = new Peeka();
-//                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
+//                card.initTroopData();
                 break;
             case "Wizard":
                 card = new Wizard();
-//                card.getDataFromJson_troop(GlobalConfig.jsonString_troop);
+//                card.initTroopData();
                 break;
             case "FireBall":
                 card = new FireBall();
-//                card.getDataFromJson_spell(GlobalConfig.jsonString_spell);
+//                card.initSpellData();
                 break;
             case "Zap":
                 card = new Zap();
-//                card.getDataFromJson_spell(GlobalConfig.jsonString_spell);
+//                card.initSpellData();
                 break;
         }
 

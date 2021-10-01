@@ -19,8 +19,8 @@ import android.widget.ImageView;
     int getImageId_card();
     String getCardName();
     int getHitPoints();
-    int getSpeed();
-    int getHitSpeed();
+    String getSpeed();
+    float getHitSpeed();
     String getTargets();
     String getRange();
     int getDamage();
@@ -29,7 +29,11 @@ import android.widget.ImageView;
     float getProjectile_range();
     float getSlowdown_duration();
     int getElixir();
+    float getRadius();
+    float getEffective_duration();
+    int getCrown_tower_damage();
     String getType();
+
 
 }
 
