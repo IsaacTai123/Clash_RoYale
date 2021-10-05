@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.clashroyale.Fragment_card;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
 import com.example.clashroyale.models.ICard;
@@ -60,6 +61,9 @@ public class InitEventListener {
                 {
                     clickX[0] = event.getX();
                     clickY[0] = event.getY();
+
+                    // 扣除這張卡牌消耗的聖水
+                    Fragment_card.reduceElixir(currentSelectedCard.getElixir());
 
                     // 創建卡牌腳色
                     createCard.createCardInstance(

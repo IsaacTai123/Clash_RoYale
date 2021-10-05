@@ -7,23 +7,15 @@
         android:id="@+id/mainView"
         tools:context=".MainActivity">
 
-    <TextView
-            android:id="@+id/nextText"
+
+    <fragment
+            android:id="@+id/timer_fragment"
+            android:name="com.example.clashroyale.Fragment_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next:"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-            android:id="@+id/timerClock"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:text="3:00"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <ImageView
             android:id="@+id/enemy_main_castle"
@@ -101,55 +93,13 @@
             app:layout_constraintHorizontal_bias="0.826"
             app:layout_constraintVertical_bias="0.79" />
 
-    <ImageButton
-            android:id="@+id/nextCard"
-            android:tag="nextCard"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="20dp"
-            android:scaleType="fitXY"
+    <fragment
+            android:id="@+id/cardDeck"
+            android:name="com.example.clashroyale.Fragment_card"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <ImageButton
-            android:id="@+id/cardOne"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="95dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-<!--            app:layout_constraintLeft_toRightOf="@+id/nextCard"/>-->
-
-    <ImageButton
-            android:id="@+id/cardTwo"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="170dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-<!--            app:layout_constraintLeft_toRightOf="@+id/cardOne"/>-->
-
-    <ImageButton
-            android:id="@+id/cardThree"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="245dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-<!--            app:layout_constraintLeft_toRightOf="@+id/cardTwo"/>-->
-
-    <ImageButton
-            android:id="@+id/cardFour"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="320dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-<!--            app:layout_constraintLeft_toRightOf="@+id/cardThree"/>-->
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

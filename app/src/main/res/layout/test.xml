@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/nextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next:"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintBottom_toTopOf="@id/nextCard"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageButton
+            android:id="@+id/nextCard"
+            android:tag="nextCard"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ImageView
+            android:id="@+id/background"
+            android:layout_width="330dp"
+            android:layout_height="120dp"
+            android:src="@drawable/background3"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageButton
+            android:id="@+id/cardOne"
+            android:layout_width="75dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintStart_toStartOf="@id/background"
+            app:layout_constraintEnd_toEndOf="@id/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/elixir"
+            app:layout_constraintHorizontal_bias="0.086" />
+
+    <ImageButton
+            android:id="@+id/cardTwo"
+            android:layout_width="75dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toEndOf="@+id/cardOne"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/elixir"/>
+
+    <ImageButton
+            android:id="@+id/cardThree"
+            android:layout_width="75dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toEndOf="@+id/cardTwo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/elixir"/>
+
+    <ImageButton
+            android:id="@+id/cardFour"
+            android:layout_width="75dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toEndOf="@+id/cardThree"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/elixir"/>
+
+    <ProgressBar
+            android:id="@+id/elixir"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="300dp"
+            android:layout_height="15dp"
+            android:max="1000"
+            android:min="0"
+            android:progressDrawable="@drawable/progress_style"
+            android:secondaryProgress="0"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.855" />
+
+    <TextView
+            android:id="@+id/currentElixir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            app:layout_constraintBottom_toBottomOf="@+id/elixir"
+            app:layout_constraintTop_toTopOf="@+id/elixir"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.263"
+            app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
