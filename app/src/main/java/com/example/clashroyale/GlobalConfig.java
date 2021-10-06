@@ -3,6 +3,9 @@ package com.example.clashroyale;
 import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.ImageView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.clashroyale.controller.CardDeck;
 import com.example.clashroyale.db.IMysqlCon;
@@ -18,8 +21,9 @@ import java.util.Random;
 
 public class GlobalConfig {
 
-    public static int screenWidth;
-    public static int screenHeight;
+    public static int playgroundWidth;
+    public static int playgroundHeight;
+    public static int playLimit;  //出牌的限制區域
     public static MainActivity mainActivity;
     public static int pathOne_Left;
     public static int pathOne_Right;
@@ -37,30 +41,36 @@ public class GlobalConfig {
 
 
     /**
-     * @param main 把MainActivity傳進來<br>
+     * @param playView 把playground遊戲場地 ConstraintLayout 傳進來<br>
      *             這邊做初始化後面程式需要調動的變數
      */
-    public static void init(MainActivity main, int playerId) {
+    public static void initActivity(ConstraintLayout playView) {
+        getPlayScreenSize(playView);
         calcPath();
-        getScreenSize(main);
-        calcPath();
+    }
+
+    public static void initFragment_card(int playerId) {
         initRedisConnections();
         initMySqlConnections(playerId);
         initCardsData(playerId);
-//        initCardInstance(playerId);
     }
+
 
     /**
      * 計算螢幕的長寬
      */
-    public static void getScreenSize(MainActivity main) {
-        mainActivity = main;
-        WindowManager wm = main.getWindowManager();
-        Display disp = wm.getDefaultDisplay();
-        Point size = new Point();
-        disp.getSize(size);
-        screenWidth = size.x;
-        screenHeight = size.y;
+    public static void getPlayScreenSize(ConstraintLayout playView) {
+//        mainActivity = main;
+//        WindowManager wm = main.getWindowManager();
+//        Display display = wm.getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        screenWidth = size.x;
+//        screenHeight = size.y;
+
+        ImageView playground = playView.findViewById(R.id.playground);
+        playgroundWidth = playground.getWidth();
+        playgroundHeight = playground.getHeight();
     }
 
 
@@ -72,11 +82,12 @@ public class GlobalConfig {
      * 計算畫面上能走路徑的X座標
      */
     public static void calcPath() {
-        pathOne_Left = (screenWidth / 4) - 70;
-        pathOne_Right = (pathOne_Left + 60);
-        pathMiddle = screenWidth / 2;
-        pathTwo_Left = (screenWidth / 4 * 3) + 10;
-        pathTwo_Right = (pathTwo_Left + 60);
+        pathOne_Left = 160;
+        pathOne_Right = 240;
+        pathMiddle = playgroundWidth / 2;
+        pathTwo_Left = 650;
+        pathTwo_Right = 730;
+        playLimit = playgroundHeight / 2 + 50;  //50 是河的一半
     }
 
     /**

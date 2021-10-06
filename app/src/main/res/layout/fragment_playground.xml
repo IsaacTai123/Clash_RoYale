@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/playground_fragment"
+        tools:context=".MainActivity">
+
+        <ImageView
+                android:id="@+id/playground"
+                android:layout_width="326dp"
+                android:layout_height="576dp"
+                android:src="@drawable/playground4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="0dp"
+                app:layout_constraintHorizontal_bias="0.494" />
+
+        <ImageView
+                android:id="@+id/enemy_main_castle"
+                android:src="@drawable/enemy_main_castle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+                android:id="@+id/enemy_subcastle2"
+                android:src="@drawable/enemy_subcastle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toTopOf="@id/subcastle2"
+                app:layout_constraintTop_toTopOf="@id/playground"
+                app:layout_constraintEnd_toEndOf="@id/playground"
+                app:layout_constraintVertical_bias="0.125"
+                android:layout_marginEnd="44dp" />
+
+        <ImageView
+                android:id="@+id/enemy_subcastle"
+                android:src="@drawable/enemy_subcastle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toTopOf="@id/subcastle"
+                app:layout_constraintTop_toTopOf="@id/playground"
+                app:layout_constraintStart_toStartOf="@id/playground"
+                app:layout_constraintVertical_bias="0.125"
+                android:layout_marginStart="40dp" />
+
+        <ImageView
+                android:id="@+id/main_castle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintBottom_toBottomOf="@id/playground"
+                app:layout_constraintTop_toTopOf="@id/playground"
+                app:layout_constraintLeft_toLeftOf="@id/playground"
+                app:layout_constraintRight_toRightOf="@id/playground"
+                android:src="@drawable/main_castle"
+                app:layout_constraintVertical_bias="0.972" />
+
+        <ImageView
+                android:id="@+id/subcastle2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="44dp"
+                app:layout_constraintBottom_toBottomOf="@id/playground"
+                app:layout_constraintEnd_toEndOf="@id/playground"
+                android:src="@drawable/main_castle"
+                android:layout_marginBottom="72dp" />
+
+        <ImageView
+                android:id="@+id/subcastle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                app:layout_constraintBottom_toBottomOf="@id/playground"
+                app:layout_constraintStart_toStartOf="@+id/playground"
+                android:src="@drawable/main_castle"
+                android:layout_marginBottom="72dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

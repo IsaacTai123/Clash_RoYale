@@ -3,7 +3,9 @@ package com.example.clashroyale.controller;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -34,8 +36,9 @@ import java.util.concurrent.TimeUnit;
 public class BattleStart {
 
     private final MainActivity mainActivity;
-    private final ConstraintLayout constraintLayout;
-    private Fragment fragmentCard;
+//    private final ConstraintLayout constraintLayout;
+    private final ConstraintLayout fragmentCard;
+    private final ConstraintLayout fragmentPlayground;
     private final InitViewElement initViewElement;
     private final CardRandom cardRn;
 
@@ -46,14 +49,14 @@ public class BattleStart {
      */
     public BattleStart(MainActivity main){
 
-        // 競賽開始畫面參數的初始化
+        // 對戰開始畫面參數的初始化
         this.mainActivity = main;
-        constraintLayout = main.findViewById(R.id.mainView);  //抓整個Layout
-//        fragmentCard = main.findViewById(R.id.cardDeck);
-
+//        constraintLayout = main.findViewById(R.id.mainView);  //抓整個Layout
+        fragmentCard = main.findViewById(R.id.cardDeck_activity);  //抓Fragment
+        fragmentPlayground = main.findViewById(R.id.playground_activity);
 
         Thread t = new Thread(() -> {
-            GlobalConfig.init(main, 1);
+            GlobalConfig.initFragment_card(1);
         });
         t.start();
         try {
@@ -66,15 +69,18 @@ public class BattleStart {
         cardRn = new CardRandom();
         // 因為去資料庫讀資料需要點時間, 而程式還在繼續 所以資料還沒讀出來他就已經跑下面的程式, 所以帶入會是null繼而得到錯誤訊息
         cardRn.reOrganize(GlobalConfig.cardsInstance);
-        initViewElement = new InitViewElement(main, cardRn);  //Init Element to Object
+        initViewElement = new InitViewElement(fragmentCard, cardRn);  //Init Element to Object
     }
 
     /**
      * 把EventListener 做初始化
      */
     public void addEventListener() throws InterruptedException {
+        GlobalConfig.initActivity(fragmentPlayground);  //計算遊戲場地的路徑
+
         InitEventListener initEventListener = new InitEventListener(initViewElement, cardRn);
         initEventListener.cardButtonEventListener();
-        initEventListener.playCardInstance(constraintLayout, mainActivity);
+        initEventListener.playCardInstance(fragmentPlayground, mainActivity);
+
     }
 }

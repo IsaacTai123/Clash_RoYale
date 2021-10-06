@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.clashroyale.Fragment_card;
+import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
 import com.example.clashroyale.models.ICard;
@@ -50,24 +52,24 @@ public class InitEventListener {
     }
 
     // 點擊螢幕召喚卡牌
-    public void playCardInstance(ConstraintLayout mainView, MainActivity mainActivity) {
+    public void playCardInstance(@NonNull ConstraintLayout playgroundView, MainActivity mainActivity) {
 
         View.OnTouchListener touchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ICard currentSelectedCard = gameLogic.getSelectedCard();
+                clickX[0] = event.getX();
+                clickY[0] = event.getY();
 
-                if (currentSelectedCard != null)
+                // TODO: 判斷若當前聖水不足則不能出牌
+                if (currentSelectedCard != null && clickY[0] > GlobalConfig.playLimit)
                 {
-                    clickX[0] = event.getX();
-                    clickY[0] = event.getY();
-
                     // 扣除這張卡牌消耗的聖水
                     Fragment_card.reduceElixir(currentSelectedCard.getElixir());
 
                     // 創建卡牌腳色
                     createCard.createCardInstance(
-                            mainView,
+                            playgroundView,
                             mainActivity,
                             currentSelectedCard,
                             clickX[0],
@@ -84,7 +86,7 @@ public class InitEventListener {
                 return false;
             }
         };
-        mainView.setOnTouchListener(touchListener);
+        playgroundView.setOnTouchListener(touchListener);
     }
 }
 

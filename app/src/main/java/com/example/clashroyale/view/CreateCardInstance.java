@@ -1,7 +1,9 @@
 package com.example.clashroyale.view;
 
+import android.view.View;
 import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
@@ -19,7 +21,7 @@ public class CreateCardInstance {
      * @param clickX 卡排放到場上的初始位置x座標
      * @param clickY 卡排放到場上的初始位置y座標
      */
-    public void createCardInstance(ConstraintLayout conLay, MainActivity mainActivity, ICard card, float clickX, float clickY)
+    public void createCardInstance(ConstraintLayout playView, MainActivity mainActivity, ICard card, float clickX, float clickY)
     {
         // 新增圖片
         ImageView cardInstance = new ImageView(mainActivity);
@@ -33,11 +35,11 @@ public class CreateCardInstance {
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(cardWidth, cardHeight);
         params.leftMargin = (int) (clickX - cardWidth/2);  //因為透過getX抓到的座標位置是滑鼠點擊的地方, 所以產生的圖片會是從左上角開始(這邊調整至中)
         params.topMargin = (int) (clickY - cardHeight/2);
-        params.startToStart = conLay.getId(); // 取得layout最外層的ID, 也就是activity_main.xml 的parent.
-        params.topToTop = conLay.getId();
+        params.startToStart = playView.getId(); // 取得layout最外層的ID, 也就是activity_main.xml 的parent.
+        params.topToTop = playView.getId();
 
         cardInstance.setLayoutParams(params);
-        conLay.addView(cardInstance);
+        playView.addView(cardInstance);
 
         // 讓腳色開始移動
         MoveAction moveAction = new MoveAction();

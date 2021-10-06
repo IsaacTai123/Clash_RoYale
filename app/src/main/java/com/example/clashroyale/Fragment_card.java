@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.clashroyale.controller.CardRandom;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,7 +20,9 @@ public class Fragment_card extends Fragment {
     private static int currentElixir = 0;
     private static ProgressBar elixirBar;
     private static TextView elixirCount;
+//    private final CardRandom cardRn;
     Handler handler = new Handler();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstance) {
@@ -26,6 +30,8 @@ public class Fragment_card extends Fragment {
 
         elixirBar = view.findViewById(R.id.elixir);
         elixirCount = view.findViewById(R.id.currentElixir);
+
+
         startElixir();
         return view;
     }
