@@ -6,6 +6,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
@@ -34,6 +35,7 @@ public class BattleStart {
 
     private final MainActivity mainActivity;
     private final ConstraintLayout constraintLayout;
+    private Fragment fragmentCard;
     private final InitViewElement initViewElement;
     private final CardRandom cardRn;
 
@@ -47,6 +49,8 @@ public class BattleStart {
         // 競賽開始畫面參數的初始化
         this.mainActivity = main;
         constraintLayout = main.findViewById(R.id.mainView);  //抓整個Layout
+//        fragmentCard = main.findViewById(R.id.cardDeck);
+
 
         Thread t = new Thread(() -> {
             GlobalConfig.init(main, 1);

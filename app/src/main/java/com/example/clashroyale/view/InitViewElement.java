@@ -7,6 +7,8 @@ import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
 import com.example.clashroyale.controller.CardRandom;
 
+import java.util.zip.Inflater;
+
 public class InitViewElement {
 
     public ImageButton cardOne, cardTwo, cardThree, cardFour, nextCard;
