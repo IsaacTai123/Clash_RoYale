@@ -29,7 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 進入遊戲畫面
-        battleStart = new BattleStart(this);
+        try {
+            battleStart = new BattleStart(this);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

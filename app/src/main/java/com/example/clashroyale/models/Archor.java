@@ -3,10 +3,6 @@ package com.example.clashroyale.models;
 
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.R;
-import com.example.clashroyale.controller.CardRandom;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Archor extends CardProperties {
 

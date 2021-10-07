@@ -1,6 +1,7 @@
 package com.example.clashroyale.models;
 
 import android.media.Image;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.clashroyale.GlobalConfig;
@@ -17,7 +18,8 @@ public class CardProperties implements ICard {
     protected int imageResId_ins;
     protected int imageResId_card;
     protected int imageId_card;
-    protected ImageView imgUnit;
+    protected ImageButton imgButton;
+    protected boolean activite;  //用來判斷該卡片是否達到聖水的條件
 
     // Card Properties
     protected String cardName;
@@ -96,6 +98,16 @@ public class CardProperties implements ICard {
     }
 
     @Override
+    public void setActivate(boolean bool) {
+        this.activite = bool;
+    }
+
+    @Override
+    public boolean getActivate() {
+        return activite;
+    }
+
+    @Override
     public float getX() {
         return x;
     }
@@ -153,6 +165,16 @@ public class CardProperties implements ICard {
     @Override
     public String getCardName() {
         return cardName;
+    }
+
+    @Override
+    public ImageButton getImgButton() {
+        return imgButton;
+    }
+
+    @Override
+    public void setImgButton(ImageButton img) {
+        this.imgButton = img;
     }
 
     @Override

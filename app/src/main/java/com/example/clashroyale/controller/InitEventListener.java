@@ -29,11 +29,11 @@ public class InitEventListener {
     final float[] clickY = new float[1];
     GameLogic gameLogic = new GameLogic();
     CreateCardInstance createCard;
-    CardRandom cardRn;
+    CardDeck cardDeck;
 
-    public InitEventListener(InitViewElement ive, CardRandom cardRandom) {
+    public InitEventListener(InitViewElement ive, CardDeck cardDeck) {
         createCard = new CreateCardInstance();
-        cardRn = cardRandom;
+        this.cardDeck = cardDeck;
         this.cardOne = ive.cardOne;
         this.cardTwo = ive.cardTwo;
         this.cardThree = ive.cardThree;
@@ -42,7 +42,7 @@ public class InitEventListener {
 
     public void cardButtonEventListener() {
         View.OnClickListener clickListener = v1 -> {
-            gameLogic.currentSelectedCard(v1);
+            gameLogic.currentSelectedCard(v1, cardDeck);
         };
 
         cardOne.setOnClickListener(clickListener);
@@ -62,10 +62,10 @@ public class InitEventListener {
                 clickY[0] = event.getY();
 
                 // TODO: 判斷若當前聖水不足則不能出牌
-                if (currentSelectedCard != null && clickY[0] > GlobalConfig.playLimit)
+                if (currentSelectedCard != null && currentSelectedCard.getActivate() && clickY[0] > GlobalConfig.playLimit )
                 {
                     // 扣除這張卡牌消耗的聖水
-                    Fragment_card.reduceElixir(currentSelectedCard.getElixir());
+                    cardDeck.reduceElixir(currentSelectedCard.getElixir());
 
                     // 創建卡牌腳色
                     createCard.createCardInstance(
@@ -79,7 +79,7 @@ public class InitEventListener {
                     // 選擇的牌只能出一次, 所以建立完之後就清掉
                     gameLogic.cleanSelectedCard();
                     // 清掉之後還要把下一張牌填到這個空位
-                    cardRn.nextCard(gameLogic.getSelectedButton());
+                    cardDeck.nextCard(gameLogic.getSelectedButton());
                 }
                 Log.e("click", "Left: array: "+event.getX());
                 Log.e("click", "Top: array: "+event.getY());

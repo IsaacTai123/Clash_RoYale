@@ -21,6 +21,7 @@ import com.example.clashroyale.models.Wizard;
 import com.example.clashroyale.models.Zap;
 import com.example.clashroyale.view.MoveAction;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,43 +57,60 @@ public class GameLogic {
      */
     // 儲存玩家點選的卡牌( 下次點選時需使用這個來看該放置哪一張卡牌)
     @SuppressLint("NonConstantResourceId")
-    public void currentSelectedCard(View imgV)
+    public void currentSelectedCard(View imgV, CardDeck cardDeck)
     {
-        switch (imgV.getId())
-        {
-            case R.id.archor_card:
-                selectedButton = imgV.findViewById(R.id.archor_card);
-                this.selectedCard = new Archor();
-                break;
-            case R.id.giant_card:
-                selectedButton = imgV.findViewById(R.id.giant_card);
-                this.selectedCard = new Giant();
-                break;
-            case R.id.fireBall_card:
-                selectedButton = imgV.findViewById(R.id.fireBall_card);
-                this.selectedCard = new FireBall();
-                break;
-            case R.id.iceWizard_card:
-                selectedButton = imgV.findViewById(R.id.iceWizard_card);
-                this.selectedCard = new IceWizard();
-                break;
-            case R.id.peeka_card:
-                selectedButton = imgV.findViewById(R.id.peeka_card);
-                this.selectedCard = new Peeka();
-                break;
-            case R.id.bowler_card:
-                selectedButton = imgV.findViewById(R.id.bowler_card);
-                this.selectedCard = new Bowler();
-                break;
-            case R.id.wizard_card:
-                selectedButton = imgV.findViewById(R.id.wizard_card);
-                this.selectedCard = new Wizard();
-                break;
-            case R.id.zap_card:
-                selectedButton = imgV.findViewById(R.id.zap_card);
-                this.selectedCard = new Zap();
-                break;
+        ArrayList<ICard> currentCard = cardDeck.currentCard;
+        ArrayList<ImageButton> currentImageButton = new ArrayList<>();
+        for (ICard c : currentCard) {
+                currentImageButton.add(c.getImgButton());
         }
+
+        for (ICard c : currentCard) {
+            for (int i=0; i<4; i++) {
+                if (c.getImageId_card() == imgV.getId()) {
+                    selectedCard = c;
+                    selectedButton = c.getImgButton();
+                }
+            }
+        }
+
+//        ICard[] cardArray = cardDeck.cardReOrganize;
+//        switch (imgV.getId())
+//        {
+//            case R.id.archor_card:
+//                selectedButton = imgV.findViewById(R.id.archor_card);
+//                selectedCard = new Archor();
+//                break;
+//            case R.id.giant_card:
+//                selectedButton = imgV.findViewById(R.id.giant_card);
+//                selectedCard = new Giant();
+//                break;
+//            case R.id.fireBall_card:
+//                selectedButton = imgV.findViewById(R.id.fireBall_card);
+//                selectedCard = new FireBall();
+//                break;
+//            case R.id.iceWizard_card:
+//                selectedButton = imgV.findViewById(R.id.iceWizard_card);
+//                selectedCard = new IceWizard();
+//                break;
+//            case R.id.peeka_card:
+//                selectedButton = imgV.findViewById(R.id.peeka_card);
+//                selectedCard = new Peeka();
+//                break;
+//            case R.id.bowler_card:
+//                selectedButton = imgV.findViewById(R.id.bowler_card);
+//                selectedCard = new Bowler();
+//                break;
+//            case R.id.wizard_card:
+//                selectedButton = imgV.findViewById(R.id.wizard_card);
+//                selectedCard = new Wizard();
+//                break;
+//            case R.id.zap_card:
+//                selectedButton = imgV.findViewById(R.id.zap_card);
+//                selectedCard = new Zap();
+//                break;
+//        }
+//        selectedCard.setImgButton(selectedButton);
     }
 
     /**

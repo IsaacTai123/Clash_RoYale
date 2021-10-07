@@ -1,32 +1,35 @@
 package com.example.clashroyale.view;
 
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
-import com.example.clashroyale.controller.CardRandom;
-
-import java.sql.Connection;
-import java.util.zip.Inflater;
+import com.example.clashroyale.controller.CardDeck;
 
 public class InitViewElement {
 
     public ImageButton cardOne, cardTwo, cardThree, cardFour, nextCard;
 
-    public InitViewElement(ConstraintLayout view, CardRandom cardRn)
+
+    public InitViewElement(MainActivity main, CardDeck cardDeck)
     {
-        cardOne = view.findViewById(R.id.cardOne);
-        cardTwo = view.findViewById(R.id.cardTwo);
-        cardThree = view.findViewById(R.id.cardThree);
-        cardFour = view.findViewById(R.id.cardFour);
-        nextCard = view.findViewById(R.id.nextCard);
+        ConstraintLayout fragmentCard = main.findViewById(R.id.cardDeck_activity);  //抓Fragment
 
-        ImageView[] imgs = {cardOne, cardTwo, cardThree, cardFour, nextCard};
-        cardRn.setStartImageResources(imgs);
+        cardOne = fragmentCard.findViewById(R.id.cardOne);
+        cardTwo = fragmentCard.findViewById(R.id.cardTwo);
+        cardThree = fragmentCard.findViewById(R.id.cardThree);
+        cardFour = fragmentCard.findViewById(R.id.cardFour);
+        nextCard = fragmentCard.findViewById(R.id.nextCard);
+        ProgressBar elixirBar = fragmentCard.findViewById(R.id.elixir);
+        TextView elixirCount = fragmentCard.findViewById(R.id.currentElixir);
 
+        ImageButton[] imgs = {cardOne, cardTwo, cardThree, cardFour, nextCard};
+        cardDeck.setStartImageResources(imgs);
+        cardDeck.startElixir(elixirBar, elixirCount);
     }
 }

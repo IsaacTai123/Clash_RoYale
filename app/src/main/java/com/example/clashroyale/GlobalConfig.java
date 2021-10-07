@@ -4,6 +4,8 @@ import android.graphics.Point;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -35,9 +37,8 @@ public class GlobalConfig {
     public static HashMap<String, String> imgsPosition;
     public static String jsonString_troop;
     public static String jsonString_spell;
-    public static ICard[] cardsInstance = new ICard[8];
-    private static String[] cardArray;
-
+//    public static ICard[] cardsInstance = new ICard[8];
+    public static String[] cardArray_8;  // 帶入遊戲的八張牌
 
 
     /**
@@ -118,11 +119,11 @@ public class GlobalConfig {
      * 把玩家選定的卡牌組給讀出來(玩家可以有多個卡牌組)
      */
     public static void initCardInstance(int playerId) {
-            MysqlCon mysql = new MysqlCon();
-            IMysqlCon mysqlCon = mysql;
-            cardArray = mysqlCon.getCardDeck(playerId, 1);
-            CardDeck cardDeck = new CardDeck();
-            cardsInstance = cardDeck.generateCardInstance(cardArray);
+//            MysqlCon mysql = new MysqlCon();
+//            IMysqlCon mysqlCon = mysql;
+//            cardArray_8 = mysqlCon.getCardDeck(playerId, 1);
+//            CardDeck cardDeck = new CardDeck();
+//            cardsInstance = cardDeck.generateCardInstance(cardArray_8);
     }
 
     /**
@@ -138,9 +139,7 @@ public class GlobalConfig {
             jsonString_troop = mysqlCon.getCardTroopData(playerId, sqlTroopCount);
             jsonString_spell = mysqlCon.getCardSpellData(playerId, sqlSpellCount);
 
-            String[] cardArray = mysqlCon.getCardDeck(1, 1); //取出這次玩家所使用的8張卡牌
-            CardDeck cardDeck = new CardDeck();
-            cardsInstance = cardDeck.generateCardInstance(cardArray);
+            cardArray_8 = mysqlCon.getCardDeck(1, 1); //取出這次玩家所使用的8張卡牌
     }
 
     public static String generateStringId(int keylen) {
