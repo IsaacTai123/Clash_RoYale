@@ -27,7 +27,7 @@ public class InitEventListener {
 
     final float[] clickX = new float[1];
     final float[] clickY = new float[1];
-    GameLogic gameLogic = new GameLogic();
+//    GameLogic gameLogic = new GameLogic();
     CreateCardInstance createCard;
     CardDeck cardDeck;
 
@@ -42,7 +42,7 @@ public class InitEventListener {
 
     public void cardButtonEventListener() {
         View.OnClickListener clickListener = v1 -> {
-            gameLogic.currentSelectedCard(v1, cardDeck);
+            cardDeck.currentSelectedCard(v1);
         };
 
         cardOne.setOnClickListener(clickListener);
@@ -57,7 +57,7 @@ public class InitEventListener {
         View.OnTouchListener touchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                ICard currentSelectedCard = gameLogic.getSelectedCard();
+                ICard currentSelectedCard = cardDeck.getSelectedCard();
                 clickX[0] = event.getX();
                 clickY[0] = event.getY();
 
@@ -77,9 +77,9 @@ public class InitEventListener {
                     );
 
                     // 選擇的牌只能出一次, 所以建立完之後就清掉
-                    gameLogic.cleanSelectedCard();
+                    cardDeck.cleanSelectedCard();
                     // 清掉之後還要把下一張牌填到這個空位
-                    cardDeck.nextCard(gameLogic.getSelectedButton());
+                    cardDeck.nextCard(cardDeck.getSelectedButton());
                 }
                 Log.e("click", "Left: array: "+event.getX());
                 Log.e("click", "Top: array: "+event.getY());

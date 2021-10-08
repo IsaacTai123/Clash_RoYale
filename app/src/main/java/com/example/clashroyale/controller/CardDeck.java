@@ -4,6 +4,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -19,13 +20,10 @@ import com.example.clashroyale.models.Peeka;
 import com.example.clashroyale.models.Wizard;
 import com.example.clashroyale.models.Zap;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.IntStream;
 
 public class CardDeck {
 
@@ -33,11 +31,13 @@ public class CardDeck {
     private ProgressBar elixirBar;
     private TextView elixirCount;
     Handler handler = new Handler();
-    private int nextInt = 4;
+    private int nextInt = 3;
     private ImageView[] imgArray;  //玩家手中的卡牌(type img)
     protected ICard[] cardReOrganize = new ICard[8];
     protected ArrayList<ICard> currentCard = new ArrayList<>();  //記錄當下有哪些卡片在使用者手上(記錄他的index)
     private ArrayList<Integer> currentCardIndex = new ArrayList<Integer>();  //記錄當下有哪些卡片在使用者手上(記錄他的index)
+    private ICard selectedCard;
+    private ImageButton selectedButton;
 
 
     public ICard[] generateCardInstance(String[] cardDeck) {
@@ -144,19 +144,17 @@ public class CardDeck {
 
             // 把next的卡牌換成再下一張
             int len = imgArray.length;
-            int cardIndex = nextInt;
+            int nextInt_2 = nextInt;
             do {
-                cardIndex ++;
-                if (cardIndex > 7) {
-                    cardIndex = 0;
+                nextInt_2++;
+                if (nextInt_2 > 7) {
+                    nextInt_2 = 0;
                 }
             }
-            while (currentCardIndex.contains(cardIndex));
+            while (currentCardIndex.contains(nextInt_2));
 
-//            if (cardIndex > 7) cardIndex = 0;
-            imgArray[len-1].setImageResource(cardReOrganize[cardIndex].getImageResId_card());
-            imgArray[len-1].setId(cardReOrganize[cardIndex].getImageId_card());
-            nextInt++;
+            imgArray[len-1].setImageResource(cardReOrganize[nextInt_2].getImageResId_card());
+            imgArray[len-1].setId(cardReOrganize[nextInt_2].getImageId_card());
         }
     }
 
@@ -235,4 +233,29 @@ public class CardDeck {
             }
         }
     }
+
+    /**
+     * @param imgV 點擊圖片按鈕傳回來的View物件<br>
+     *             抓取當下玩家點選的圖片, 並記錄起來
+     *             儲存玩家點選的卡牌(當玩家點擊場地時, 需使用這個來看該放置哪一張卡牌)
+     */
+    public void currentSelectedCard(View imgV)
+    {
+        for (ICard c : currentCard) {
+            for (int i=0; i<4; i++) {
+                if (c.getImageId_card() == imgV.getId()) {
+                    selectedCard = c;
+                    selectedButton = c.getImgButton();
+                }
+            }
+        }
+    }
+
+    /**
+     * 當玩家把牌放置到場上後, 呼叫這個method來清空selectedCard. 因為選一次牌只能出一次
+     */
+    public void cleanSelectedCard() {this.selectedCard = null; }
+
+    public ICard getSelectedCard() { return selectedCard; }
+    public ImageButton getSelectedButton() { return selectedButton; }
 }

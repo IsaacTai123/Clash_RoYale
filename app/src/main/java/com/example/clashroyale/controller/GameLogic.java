@@ -34,8 +34,6 @@ public class GameLogic {
     Handler handler = new Handler();
 
     // variable
-    private ICard selectedCard;
-    private ImageButton selectedButton;
     private MoveAction moveAction;
     private float clickX;
     private float clickY;
@@ -46,80 +44,6 @@ public class GameLogic {
     boolean condition = true;
     private boolean cardIsAlive;
     private int[] imgUnitLeft_up, imgUnitLeft_down, imgUnitRight_up, imgUnitRight_down;  //分別對應圖形的四點座標
-
-    public GameLogic() {
-    }
-
-
-    /**
-     * @param imgV 點擊圖片按鈕傳回來的View物件<br>
-     *             抓取當下玩家點選的圖片, 並記錄起來
-     */
-    // 儲存玩家點選的卡牌( 下次點選時需使用這個來看該放置哪一張卡牌)
-    @SuppressLint("NonConstantResourceId")
-    public void currentSelectedCard(View imgV, CardDeck cardDeck)
-    {
-        ArrayList<ICard> currentCard = cardDeck.currentCard;
-        ArrayList<ImageButton> currentImageButton = new ArrayList<>();
-        for (ICard c : currentCard) {
-                currentImageButton.add(c.getImgButton());
-        }
-
-        for (ICard c : currentCard) {
-            for (int i=0; i<4; i++) {
-                if (c.getImageId_card() == imgV.getId()) {
-                    selectedCard = c;
-                    selectedButton = c.getImgButton();
-                }
-            }
-        }
-
-//        ICard[] cardArray = cardDeck.cardReOrganize;
-//        switch (imgV.getId())
-//        {
-//            case R.id.archor_card:
-//                selectedButton = imgV.findViewById(R.id.archor_card);
-//                selectedCard = new Archor();
-//                break;
-//            case R.id.giant_card:
-//                selectedButton = imgV.findViewById(R.id.giant_card);
-//                selectedCard = new Giant();
-//                break;
-//            case R.id.fireBall_card:
-//                selectedButton = imgV.findViewById(R.id.fireBall_card);
-//                selectedCard = new FireBall();
-//                break;
-//            case R.id.iceWizard_card:
-//                selectedButton = imgV.findViewById(R.id.iceWizard_card);
-//                selectedCard = new IceWizard();
-//                break;
-//            case R.id.peeka_card:
-//                selectedButton = imgV.findViewById(R.id.peeka_card);
-//                selectedCard = new Peeka();
-//                break;
-//            case R.id.bowler_card:
-//                selectedButton = imgV.findViewById(R.id.bowler_card);
-//                selectedCard = new Bowler();
-//                break;
-//            case R.id.wizard_card:
-//                selectedButton = imgV.findViewById(R.id.wizard_card);
-//                selectedCard = new Wizard();
-//                break;
-//            case R.id.zap_card:
-//                selectedButton = imgV.findViewById(R.id.zap_card);
-//                selectedCard = new Zap();
-//                break;
-//        }
-//        selectedCard.setImgButton(selectedButton);
-    }
-
-    /**
-     * 當玩家把牌放置到場上後, 呼叫這個method來清空selectedCard. 因為選一次牌只能出一次
-     */
-    public void cleanSelectedCard() {this.selectedCard = null; }
-
-    public ICard getSelectedCard() { return selectedCard; }
-    public ImageButton getSelectedButton() { return selectedButton; }
 
     /**
      * @param moveAction 設定圖片新的座標位置
