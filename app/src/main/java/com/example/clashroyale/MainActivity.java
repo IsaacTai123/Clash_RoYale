@@ -1,57 +1,37 @@
 package com.example.clashroyale;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.clashroyale.controller.BattleStart;
 
-import org.json.JSONException;
-
-import java.util.HashMap;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisShardInfo;
-
 public class MainActivity extends AppCompatActivity {
 
-    BattleStart battleStart;
+    private Button bt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //設定全螢幕顯示
+         //設定全螢幕顯示
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        // 進入遊戲畫面
-        try {
-            battleStart = new BattleStart(this);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        bt = findViewById(R.id.battle);
+        bt.setOnClickListener(this::callSecondActivity);
 
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus){
-        super.onWindowFocusChanged(hasFocus);
-
-        try {
-            battleStart.addEventListener();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
+    public void callSecondActivity(View view) {
+        Intent i = new Intent(getApplicationContext(), BattleActivity.class);
+        i.putExtra("value1", "hello");
+        startActivity(i);
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.clashroyale.BattleActivity;
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
@@ -35,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BattleStart {
 
-    private final MainActivity mainActivity;
+    private final BattleActivity battleActivity;
     private final ConstraintLayout fragmentPlayground;
     private final InitViewElement initViewElement;
     private final CardDeck cardDeck;
@@ -45,10 +46,10 @@ public class BattleStart {
      * @param main MainActivity 的實例
      *             進入Battle的程式進入點
      */
-    public BattleStart(MainActivity main) throws InterruptedException {
+    public BattleStart(BattleActivity main) throws InterruptedException {
 
         // 對戰開始畫面參數的初始化
-        this.mainActivity = main;
+        this.battleActivity = main;
         fragmentPlayground = main.findViewById(R.id.playground_activity);
 
         Thread t = new Thread(() -> {
@@ -72,7 +73,7 @@ public class BattleStart {
 
         InitEventListener initEventListener = new InitEventListener(initViewElement, cardDeck);
         initEventListener.cardButtonEventListener();
-        initEventListener.playCardInstance(fragmentPlayground, mainActivity);
+        initEventListener.playCardInstance(fragmentPlayground, battleActivity);
 
     }
 }

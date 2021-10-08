@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.clashroyale.BattleActivity;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
 import com.example.clashroyale.controller.CardDeck;
@@ -16,7 +17,7 @@ public class InitViewElement {
     public ImageButton cardOne, cardTwo, cardThree, cardFour, nextCard;
 
 
-    public InitViewElement(MainActivity main, CardDeck cardDeck)
+    public InitViewElement(BattleActivity main, CardDeck cardDeck)
     {
         ConstraintLayout fragmentCard = main.findViewById(R.id.cardDeck_activity);  //抓Fragment
 

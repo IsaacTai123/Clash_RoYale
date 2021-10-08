@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.clashroyale.BattleActivity;
 import com.example.clashroyale.Fragment_card;
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
@@ -52,7 +53,7 @@ public class InitEventListener {
     }
 
     // 點擊螢幕召喚卡牌
-    public void playCardInstance(@NonNull ConstraintLayout playgroundView, MainActivity mainActivity) {
+    public void playCardInstance(@NonNull ConstraintLayout playgroundView, BattleActivity battleActivity) {
 
         View.OnTouchListener touchListener = new View.OnTouchListener() {
             @Override
@@ -70,7 +71,7 @@ public class InitEventListener {
                     // 創建卡牌腳色
                     createCard.createCardInstance(
                             playgroundView,
-                            mainActivity,
+                            battleActivity,
                             currentSelectedCard,
                             clickX[0],
                             clickY[0]
