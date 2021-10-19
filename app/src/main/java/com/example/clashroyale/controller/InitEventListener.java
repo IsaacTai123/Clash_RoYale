@@ -6,83 +6,88 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.clashroyale.BattleActivity;
+import com.example.clashroyale.Fragment_card;
+import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
+import com.example.clashroyale.models.ICard;
+import com.example.clashroyale.view.CreateCardInstance;
 import com.example.clashroyale.view.InitViewElement;
+import com.example.clashroyale.view.MoveAction;
 
 public class InitEventListener {
-    private ImageButton card_archor;
-    private ImageButton card_hogrider;
-    private int screenHeight;
-    private int screenWidth;
+
+    private ImageButton cardOne;
+    private ImageButton cardTwo;
+    private ImageButton cardThree;
+    private ImageButton cardFour;
+
     final float[] clickX = new float[1];
     final float[] clickY = new float[1];
-    GameLogic methods;
+//    GameLogic gameLogic = new GameLogic();
+    CreateCardInstance createCard;
+    CardDeck cardDeck;
 
-    public InitEventListener(int screenHeight, int screenWidth, InitViewElement ive) {
-        this.card_archor = ive.card_archor;
-        this.card_hogrider = ive.card_hogrider;
-        methods = new GameLogic();
+    public InitEventListener(InitViewElement ive, CardDeck cardDeck) {
+        createCard = new CreateCardInstance();
+        this.cardDeck = cardDeck;
+        this.cardOne = ive.cardOne;
+        this.cardTwo = ive.cardTwo;
+        this.cardThree = ive.cardThree;
+        this.cardFour = ive.cardFour;
     }
 
     public void cardButtonEventListener() {
         View.OnClickListener clickListener = v1 -> {
-            ImageView currentImageView = null;
-            methods.currentCardSelected(currentImageView);
-
-            switch (v1.getId())
-            {
-                case R.id.archor_card:
-                    Log.e("card", "this is archor");
-                    currentImageView = v1.findViewById(R.id.archor_card);
-                    break;
-
-                case R.id.hogRider_card:
-                    Log.e("card", "this is hog");
-                    currentImageView = v1.findViewById(R.id.hogRider_card);
-                    break;
-            }
-
-            //TODO : 把current ImageView 丟給currentCardSelected
-            if (currentImageView != null) {
-                methods.currentCardSelected(currentImageView);
-                ImageView v = methods.getSelectedCard();
-                Log.e("selectCard", ""+v.getTag());
-            }
+            cardDeck.currentSelectedCard(v1);
         };
 
-        card_archor.setOnClickListener(clickListener);
-        card_hogrider.setOnClickListener(clickListener);
+        cardOne.setOnClickListener(clickListener);
+        cardTwo.setOnClickListener(clickListener);
+        cardThree.setOnClickListener(clickListener);
+        cardFour.setOnClickListener(clickListener);
     }
 
     // 點擊螢幕召喚卡牌
-    public void playCardInstance(ConstraintLayout mainView, MainActivity mainActivity) {
+    public void playCardInstance(@NonNull ConstraintLayout playgroundView, BattleActivity battleActivity) {
 
         View.OnTouchListener touchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                ImageView currentImage = methods.selectedCard;
+                ICard currentSelectedCard = cardDeck.getSelectedCard();
+                clickX[0] = event.getX();
+                clickY[0] = event.getY();
 
-                if (currentImage != null)
+                // TODO: 判斷若當前聖水不足則不能出牌
+                if (currentSelectedCard != null && currentSelectedCard.getActivate() && clickY[0] > GlobalConfig.playLimit )
                 {
-                    clickX[0] = event.getX();
-                    clickY[0] = event.getY();
-                    methods.createCardInstance(
-                            mainView,
-                            mainActivity,
-                            methods.getSelectedCard(),
+                    // 扣除這張卡牌消耗的聖水
+                    cardDeck.reduceElixir(currentSelectedCard.getElixir());
+
+                    // 創建卡牌腳色
+                    createCard.createCardInstance(
+                            playgroundView,
+                            battleActivity,
+                            currentSelectedCard,
                             clickX[0],
                             clickY[0]
                     );
+
+                    // 選擇的牌只能出一次, 所以建立完之後就清掉
+                    cardDeck.cleanSelectedCard();
+                    // 清掉之後還要把下一張牌填到這個空位
+                    cardDeck.nextCard(cardDeck.getSelectedButton());
                 }
-//                Log.e("click", "Left: array: "+event.getX());
-//                Log.e("click", "Top: array: "+event.getY());
+                Log.e("click", "Left: array: "+event.getX());
+                Log.e("click", "Top: array: "+event.getY());
                 return false;
             }
         };
-        mainView.setOnTouchListener(touchListener);
+        playgroundView.setOnTouchListener(touchListener);
     }
 }
 

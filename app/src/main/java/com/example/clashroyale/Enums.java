@@ -1,5 +1,22 @@
 package com.example.clashroyale;
 
 public enum Enums {
-    archor_card
+    UP,
+    RIGHT,
+    LEFT,
+    DOWN,
+    RIGHT_UP,
+    RIGHT_DOWN,
+    LEFT_UP,
+    LEFT_DOWN,
+    PATH_ONE,
+    PATH_TWO,
+    ARCHOR,
+    GIANT,
+    FIREBALL,
+    ICEWIZARD,
+    WIZARD,
+    KNIGHT,
+    PRINCE,
+    ZAP
 }

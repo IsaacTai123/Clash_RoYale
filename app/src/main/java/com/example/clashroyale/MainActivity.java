@@ -1,49 +1,37 @@
 package com.example.clashroyale;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.graphics.Point;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.Button;
 
-import com.example.clashroyale.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.clashroyale.controller.BattleStart;
-import com.example.clashroyale.controller.InitEventListener;
-import com.example.clashroyale.controller.MoveActionLogic;
-import com.example.clashroyale.db.MysqlCon;
-import com.example.clashroyale.db.RedisCon;
-import com.example.clashroyale.models.Archor;
-import com.example.clashroyale.view.InitViewElement;
 
 public class MainActivity extends AppCompatActivity {
 
-    BattleStart battleStart;
+    private Button bt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         //設定全螢幕顯示
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        // 進入遊戲畫面
-        battleStart = new BattleStart(this);
+        bt = findViewById(R.id.battle);
+        bt.setOnClickListener(this::callSecondActivity);
 
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus){
-        super.onWindowFocusChanged(hasFocus);
-
-        battleStart.moveCard();
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
+    public void callSecondActivity(View view) {
+        Intent i = new Intent(getApplicationContext(), BattleActivity.class);
+        i.putExtra("value1", "hello");
+        startActivity(i);
     }
 }
