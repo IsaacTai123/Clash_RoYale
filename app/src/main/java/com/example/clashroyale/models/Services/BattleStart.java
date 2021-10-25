@@ -6,7 +6,6 @@ import com.example.clashroyale.Controller.BattleActivity;
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.R;
 import com.example.clashroyale.Models.DataModels.ICard;
-import com.example.clashroyale.view.InitViewElement;
 
 public class BattleStart {
 

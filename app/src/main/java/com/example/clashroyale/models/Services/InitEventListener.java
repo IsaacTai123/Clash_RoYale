@@ -11,8 +11,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.clashroyale.Controller.BattleActivity;
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.Models.DataModels.ICard;
-import com.example.clashroyale.view.CreateCardInstance;
-import com.example.clashroyale.view.InitViewElement;
+import com.example.clashroyale.Models.Services.CardDeck;
+import com.example.clashroyale.Models.Services.InitViewElement;
+import com.example.clashroyale.View.CreateCardInstance;
 
 public class InitEventListener {
 

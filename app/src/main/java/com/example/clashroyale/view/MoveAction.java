@@ -1,4 +1,4 @@
-package com.example.clashroyale.view;
+package com.example.clashroyale.View;
 
 import android.util.Log;
 import android.widget.ImageView;
