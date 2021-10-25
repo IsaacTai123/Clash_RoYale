@@ -1,4 +1,4 @@
-package com.example.clashroyale.controller;
+package com.example.clashroyale.Models.Services;
 
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -10,15 +10,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.clashroyale.models.Archor;
-import com.example.clashroyale.models.Bowler;
-import com.example.clashroyale.models.FireBall;
-import com.example.clashroyale.models.Giant;
-import com.example.clashroyale.models.ICard;
-import com.example.clashroyale.models.IceWizard;
-import com.example.clashroyale.models.Peeka;
-import com.example.clashroyale.models.Wizard;
-import com.example.clashroyale.models.Zap;
+import com.example.clashroyale.Models.DataModels.Archor;
+import com.example.clashroyale.Models.DataModels.Bowler;
+import com.example.clashroyale.Models.DataModels.FireBall;
+import com.example.clashroyale.Models.DataModels.Giant;
+import com.example.clashroyale.Models.DataModels.ICard;
+import com.example.clashroyale.Models.DataModels.IceWizard;
+import com.example.clashroyale.Models.DataModels.Peeka;
+import com.example.clashroyale.Models.DataModels.Wizard;
+import com.example.clashroyale.Models.DataModels.Zap;
 
 import java.util.ArrayList;
 import java.util.Random;

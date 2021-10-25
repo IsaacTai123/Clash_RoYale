@@ -1,6 +1,6 @@
-package com.example.clashroyale.db;
+package com.example.clashroyale.Models.DAO;
 
-import com.example.clashroyale.models.ICard;
+import com.example.clashroyale.Models.DataModels.ICard;
 
 public interface IMysqlCon {
 

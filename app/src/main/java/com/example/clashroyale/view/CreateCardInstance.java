@@ -1,16 +1,12 @@
 package com.example.clashroyale.view;
 
-import android.app.Activity;
-import android.view.View;
 import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
-import com.example.clashroyale.BattleActivity;
+import com.example.clashroyale.Controller.BattleActivity;
 import com.example.clashroyale.GlobalConfig;
-import com.example.clashroyale.MainActivity;
-import com.example.clashroyale.controller.GameLogic;
-import com.example.clashroyale.models.ICard;
+import com.example.clashroyale.Models.Services.GameLogic;
+import com.example.clashroyale.Models.DataModels.ICard;
 
 import java.util.Locale;
 

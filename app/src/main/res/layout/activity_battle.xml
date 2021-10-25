@@ -5,14 +5,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mainView"
-        tools:context=".MainActivity">
+        tools:context=".Controller.MainActivity">
 
     <fragment
             android:id="@+id/playground_activity"
             android:layout_width="326dp"
             android:layout_height="576dp"
             android:layout_marginBottom="15dp"
-            android:name="com.example.clashroyale.Fragment_playground"
+            android:name="com.example.clashroyale.Controller.Fragment_playground"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/cardDeck_activity"/>
@@ -29,7 +29,7 @@
 
     <fragment
             android:id="@+id/timer_activity"
-            android:name="com.example.clashroyale.Fragment_timer"
+            android:name="com.example.clashroyale.Controller.Fragment_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -108,7 +108,7 @@
 
     <fragment
             android:id="@+id/cardDeck_activity"
-            android:name="com.example.clashroyale.Fragment_card"
+            android:name="com.example.clashroyale.Controller.Fragment_card"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             app:layout_constraintBottom_toBottomOf="parent"

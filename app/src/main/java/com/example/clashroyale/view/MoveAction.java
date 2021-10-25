@@ -2,16 +2,7 @@ package com.example.clashroyale.view;
 
 import android.util.Log;
 import android.widget.ImageView;
-import android.os.Handler;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import android.os.Handler;
-
-import com.example.clashroyale.Enums;
 import com.example.clashroyale.GlobalConfig;
 
 public class MoveAction {

@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ClashRoyale">
         <activity
-                android:name=".MainActivity"
+                android:name=".Controller.MainActivity"
                 android:exported="true"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-                android:name=".BattleActivity"
+                android:name=".Controller.BattleActivity"
                 android:exported="true"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

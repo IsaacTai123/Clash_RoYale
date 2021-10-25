@@ -1,16 +1,14 @@
 package com.example.clashroyale.view;
 
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.clashroyale.BattleActivity;
-import com.example.clashroyale.MainActivity;
+import com.example.clashroyale.Controller.BattleActivity;
 import com.example.clashroyale.R;
-import com.example.clashroyale.controller.CardDeck;
+import com.example.clashroyale.Models.Services.CardDeck;
 
 public class InitViewElement {
 

@@ -1,23 +1,18 @@
-package com.example.clashroyale.controller;
+package com.example.clashroyale.Models.Services;
 
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.clashroyale.BattleActivity;
-import com.example.clashroyale.Fragment_card;
+import com.example.clashroyale.Controller.BattleActivity;
 import com.example.clashroyale.GlobalConfig;
-import com.example.clashroyale.MainActivity;
-import com.example.clashroyale.R;
-import com.example.clashroyale.models.ICard;
+import com.example.clashroyale.Models.DataModels.ICard;
 import com.example.clashroyale.view.CreateCardInstance;
 import com.example.clashroyale.view.InitViewElement;
-import com.example.clashroyale.view.MoveAction;
 
 public class InitEventListener {
 

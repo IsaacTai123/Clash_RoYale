@@ -1,4 +1,4 @@
-package com.example.clashroyale;
+package com.example.clashroyale.Controller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.clashroyale.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

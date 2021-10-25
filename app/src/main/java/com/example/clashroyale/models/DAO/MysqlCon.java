@@ -1,12 +1,10 @@
-package com.example.clashroyale.db;
+package com.example.clashroyale.Models.DAO;
 
 import android.util.Log;
 
-import com.example.clashroyale.Enums;
 import com.example.clashroyale.GlobalConfig;
-import com.example.clashroyale.models.ICard;
+import com.example.clashroyale.Models.DataModels.ICard;
 
-import java.lang.reflect.WildcardType;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

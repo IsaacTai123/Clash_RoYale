@@ -1,4 +1,4 @@
-package com.example.clashroyale.models;
+package com.example.clashroyale.Models.DataModels;
 
 
 import com.example.clashroyale.GlobalConfig;
