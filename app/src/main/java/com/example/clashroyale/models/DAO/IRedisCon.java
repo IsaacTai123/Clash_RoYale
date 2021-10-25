@@ -1,6 +1,4 @@
-package com.example.clashroyale.db;
-
-import android.widget.ImageView;
+package com.example.clashroyale.Models.DAO;
 
 import java.util.HashMap;
 

@@ -1,38 +1,11 @@
-package com.example.clashroyale.controller;
-
-import android.graphics.Point;
-import android.util.Log;
-import android.view.Display;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
+package com.example.clashroyale.Models.Services;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
-import com.example.clashroyale.BattleActivity;
+import com.example.clashroyale.Controller.BattleActivity;
 import com.example.clashroyale.GlobalConfig;
-import com.example.clashroyale.MainActivity;
 import com.example.clashroyale.R;
-import com.example.clashroyale.db.MysqlCon;
-import com.example.clashroyale.models.Archor;
-import com.example.clashroyale.models.Bowler;
-import com.example.clashroyale.models.FireBall;
-import com.example.clashroyale.models.Giant;
-import com.example.clashroyale.models.ICard;
-import com.example.clashroyale.models.IceWizard;
-import com.example.clashroyale.models.Peeka;
-import com.example.clashroyale.models.Wizard;
-import com.example.clashroyale.models.Zap;
-import com.example.clashroyale.view.InitViewElement;
-import com.example.clashroyale.view.MoveAction;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
+import com.example.clashroyale.Models.DataModels.ICard;
 
 public class BattleStart {
 

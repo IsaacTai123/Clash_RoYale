@@ -1,16 +1,12 @@
-package com.example.clashroyale.view;
+package com.example.clashroyale.View;
 
-import android.app.Activity;
-import android.view.View;
 import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
-import com.example.clashroyale.BattleActivity;
+import com.example.clashroyale.Controller.BattleActivity;
 import com.example.clashroyale.GlobalConfig;
-import com.example.clashroyale.MainActivity;
-import com.example.clashroyale.controller.GameLogic;
-import com.example.clashroyale.models.ICard;
+import com.example.clashroyale.Models.Services.GameLogic;
+import com.example.clashroyale.Models.DataModels.ICard;
 
 import java.util.Locale;
 
@@ -18,15 +14,15 @@ public class CreateCardInstance {
 
     /**
      * @param playView 整個畫面的Layout
-     * @param mainActivity MainActivity的實例
+     * @param battleActivity MainActivity的實例
      * @param card 你所擁有的卡牌 ex. Archor, Giant etc...
      * @param clickX 卡排放到場上的初始位置x座標
      * @param clickY 卡排放到場上的初始位置y座標
      */
-    public void createCardInstance(ConstraintLayout playView, BattleActivity mainActivity, ICard card, float clickX, float clickY)
+    public void createCardInstance(ConstraintLayout playView, BattleActivity battleActivity, ICard card, float clickX, float clickY)
     {
         // 新增圖片
-        ImageView cardInstance = new ImageView(mainActivity);
+        ImageView cardInstance = new ImageView(battleActivity);
         int id = GlobalConfig.generateIntId(6);
         cardInstance.setId(id);
 

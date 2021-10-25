@@ -1,4 +1,4 @@
-package com.example.clashroyale.models;
+package com.example.clashroyale.Models.DataModels;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;

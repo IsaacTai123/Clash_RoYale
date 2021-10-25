@@ -1,27 +1,13 @@
-package com.example.clashroyale.controller;
+package com.example.clashroyale.Models.Services;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.os.Handler;
 
-import com.example.clashroyale.Enums;
 import com.example.clashroyale.GlobalConfig;
-import com.example.clashroyale.R;
-import com.example.clashroyale.models.Archor;
-import com.example.clashroyale.models.FireBall;
-import com.example.clashroyale.models.Giant;
-import com.example.clashroyale.models.ICard;
-import com.example.clashroyale.models.IceWizard;
-import com.example.clashroyale.models.Peeka;
-import com.example.clashroyale.models.Bowler;
-import com.example.clashroyale.models.Wizard;
-import com.example.clashroyale.models.Zap;
-import com.example.clashroyale.view.MoveAction;
+import com.example.clashroyale.Models.DataModels.ICard;
+import com.example.clashroyale.View.MoveAction;
 
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;

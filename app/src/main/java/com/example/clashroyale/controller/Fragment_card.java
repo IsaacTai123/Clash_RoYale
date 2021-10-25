@@ -1,19 +1,13 @@
-package com.example.clashroyale;
+package com.example.clashroyale.Controller;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
 
-
-import com.example.clashroyale.controller.CardDeck;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import com.example.clashroyale.R;
 
 public class Fragment_card extends Fragment {
 
