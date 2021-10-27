@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import com.example.clashroyale.GlobalConfig;
 import com.example.clashroyale.Models.DataModels.ICard;
-import com.example.clashroyale.View.MoveAction;
+import com.example.clashroyale.view.MoveAction;
 
 import java.util.Locale;
 import java.util.Timer;

@@ -1,4 +1,4 @@
-package com.example.clashroyale.Models.Services;
+package com.example.clashroyale.view;
 
 import android.widget.ImageButton;
 import android.widget.ProgressBar;

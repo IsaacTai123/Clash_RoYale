@@ -1,4 +1,4 @@
-package com.example.clashroyale.View;
+package com.example.clashroyale.view;
 
 import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,15 +14,15 @@ public class CreateCardInstance {
 
     /**
      * @param playView 整個畫面的Layout
-     * @param battleActivity MainActivity的實例
+     * @param mainActivity MainActivity的實例
      * @param card 你所擁有的卡牌 ex. Archor, Giant etc...
      * @param clickX 卡排放到場上的初始位置x座標
      * @param clickY 卡排放到場上的初始位置y座標
      */
-    public void createCardInstance(ConstraintLayout playView, BattleActivity battleActivity, ICard card, float clickX, float clickY)
+    public void createCardInstance(ConstraintLayout playView, BattleActivity mainActivity, ICard card, float clickX, float clickY)
     {
         // 新增圖片
-        ImageView cardInstance = new ImageView(battleActivity);
+        ImageView cardInstance = new ImageView(mainActivity);
         int id = GlobalConfig.generateIntId(6);
         cardInstance.setId(id);
 
