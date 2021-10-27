@@ -1,4 +1,4 @@
-package com.example.clashroyale.Controller;
+package com.example.clashroyale;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.clashroyale.R;
+import com.example.clashroyale.controller.BattleStart;
 
 public class MainActivity extends AppCompatActivity {
 

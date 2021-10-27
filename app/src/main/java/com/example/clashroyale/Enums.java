@@ -1,4 +1,4 @@
-package com.example.clashroyale.Models.Services;
+package com.example.clashroyale;
 
 public enum Enums {
     UP,

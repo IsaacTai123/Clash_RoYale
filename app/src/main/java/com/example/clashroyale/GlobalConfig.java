@@ -1,14 +1,22 @@
 package com.example.clashroyale;
 
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.clashroyale.Controller.MainActivity;
-import com.example.clashroyale.Models.DAO.IMysqlCon;
-import com.example.clashroyale.Models.DAO.IRedisCon;
-import com.example.clashroyale.Models.DAO.MysqlCon;
-import com.example.clashroyale.Models.DAO.RedisCon;
+import com.example.clashroyale.controller.CardDeck;
+import com.example.clashroyale.db.IMysqlCon;
+import com.example.clashroyale.db.IRedisCon;
+import com.example.clashroyale.db.MysqlCon;
+import com.example.clashroyale.db.RedisCon;
+import com.example.clashroyale.models.Archor;
+import com.example.clashroyale.models.Giant;
+import com.example.clashroyale.models.ICard;
 
 import java.util.HashMap;
 import java.util.Random;

@@ -1,11 +1,17 @@
-package com.example.clashroyale.Models.DAO;
+package com.example.clashroyale.db;
 
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
+
+import com.example.clashroyale.GlobalConfig;
 
 import java.util.HashMap;
+import java.util.SimpleTimeZone;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 
 public class RedisCon implements IRedisCon {

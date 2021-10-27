@@ -1,4 +1,4 @@
-package com.example.clashroyale.Controller;
+package com.example.clashroyale;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-
-import com.example.clashroyale.R;
 
 public class Fragment_playground extends Fragment {
 

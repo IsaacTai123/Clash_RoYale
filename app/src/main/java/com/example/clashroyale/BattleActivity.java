@@ -1,4 +1,4 @@
-package com.example.clashroyale.Controller;
+package com.example.clashroyale;
 
         import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,7 @@ package com.example.clashroyale.Controller;
         import android.view.Window;
         import android.view.WindowManager;
 
-        import com.example.clashroyale.Models.Services.BattleStart;
-        import com.example.clashroyale.R;
+        import com.example.clashroyale.controller.BattleStart;
 
 public class BattleActivity extends AppCompatActivity {
 
